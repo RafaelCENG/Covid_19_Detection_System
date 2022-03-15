@@ -1,0 +1,12 @@
+# Change Log
+
+
+## v0.0.1 - March. 15, 2022
+
+Initial release.
+**Added:**
+    -HomePage
+    -RegisterPage
+    -Connection with MySQL
+    -Submitting a form for Register
+    -Some server-sided coding
