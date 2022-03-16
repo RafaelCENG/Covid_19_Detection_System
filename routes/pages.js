@@ -1,17 +1,27 @@
 const express = require('express');
-const path = require('path');
+const authController = require('../controllers/auth');
 
 const router = express.Router()
 
 // Home Page Route
 router.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, '..' , '/views/index.html'))
+    res.render('index')
 })
 
 
 // Register Route
 router.get('/register', (req,res) => {
-    res.sendFile(path.join(__dirname, '..', '/views/register.html'))
+    res.render('register')
+})
+
+// Login Route
+router.get('/login', (req,res) => {
+    res.render('login')
+})
+
+// Profile Route
+router.get('/profile', authController.isLoggedIn,  (req,res) => {
+    res.render('profile')
 })
 
 module.exports = router
