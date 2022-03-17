@@ -32,4 +32,16 @@ router.get('/profile', authController.isLoggedIn,  (req,res) => {
     }
 })
 
+
+//  Leaflet(HomePage) Route
+router.get('/map', authController.isLoggedIn,  (req,res) => {
+    if ( req.user ) {
+        res.render('map', {
+            user: req.user
+        })
+    } else {
+        res.redirect('/login')
+    }
+})
+
 module.exports = router
