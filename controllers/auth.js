@@ -1,6 +1,8 @@
 const mysql = require("mysql")
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
+const  { promisify } = require('util');
+const { reset } = require("nodemon");
 
 // Database connection
 const db = mysql.createConnection({
@@ -108,5 +110,40 @@ exports.register = (req, res) => {
 }
 
 exports.isLoggedIn = async (req, res, next) => {
-    
+    if ( req.cookies.jwt) {
+        try {
+            // 1) verify the token
+            const decoded = await promisify(jwt.verify)(req.cookies.jwt,
+            process.env.JWT_SECRET
+            )
+
+            console.log(decoded)
+
+            // 2) Check if the user still exists
+            db.query('SELECT * FROM users  WHERE id = ?', [decoded.id], (error, result) => {
+                console.log(result)
+
+                if(!result) {
+                    return next()
+                }
+
+                req.user =  result[0]
+                return next()
+            })
+        } catch (error) {
+            console.log(error)
+            return next()
+        }
+    } else {
+        next()
+    }
+}
+
+exports.logout = async (req, res,) => {
+    res.cookie('jwt', 'logout', {
+        expires: new Date(Date.now() + 2*1000),
+        httpOnly: true
+    })
+
+    res.status(200).redirect('/')
 }

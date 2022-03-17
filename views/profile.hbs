@@ -13,8 +13,8 @@
         <h4>Node MySQL</h4>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
         </ul>
     </nav>
 
@@ -26,9 +26,9 @@
                         <img src="/avatar.png" class="avatar" alt="user profile picture"/>
                     </div>
                     <div class="card-body">
-                        <h5 class = "card-title">John Doe</h5>
+                        <h5 class = "card-title">{{ user.username }}</h5>
                         <p class="card-text">Example test test test dont know whats going on help me hello!!!</p>
-                        <a href="#" class = "btn btn-primary">john@email.com</a>
+                        <a href="#" class = "btn btn-primary">{{ user.email }}</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                         Profile Page
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Hey John welcome back</h5>
+                        <h5 class="card-title">{{ user.username }} welcome back</h5>
                         <p class="card-text">Example test test test dont know whats going on help me hello!!!</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
