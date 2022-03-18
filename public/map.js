@@ -1,19 +1,13 @@
-var map = L.map('map').setView([38.24664,21.734574], 16);
-
+var map = L.map('map')
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 }).addTo(map);
 
-
-
   // show the scale bar on the lower left corner
 L.control.scale({imperial: true, metric: true}).addTo(map);
   
-
-  // show a marker on the map
-L.marker({lon: 0, lat: 0}).bindPopup('Πλατεία Γεωργίου').addTo(map);
 
 
 // create control and add to map
