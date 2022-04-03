@@ -59,15 +59,64 @@ fs.readFile('../points/starting_pois.json', 'utf-8', (err, jsonString) => {
        try {           
             const data = JSON.parse(jsonString)
             // Insert Data To Pois Table
-            let sql = `insert ignore into pois(id,name,address,lat,lng,rating,rating_n) values ?`;
+            let sql_main = `insert ignore into pois(id,name,address,lat,lng,rating,rating_n) values ?`;
             let values = [];
             for (let i = 0; i < data.length; i++) {
                 values.push([data[i].id, data[i].name, data[i].address, data[i].coordinates.lat, data[i].coordinates.lng, data[i].rating, data[i].rating_n])
               }
-            db.query(sql, [values], (err, result) => {
+            // Database Query to insert the data
+            db.query(sql_main, [values], (err, result) => {
                 if (err) throw err;
                 console.log("rows affected " + result.affectedRows);
               });
+
+            // Creating array with each id corresponding to the equivalent type
+           let types = [];
+           let id_types = {};
+           let check_type;
+            for (let i = 0; i < data.length; i++) {
+                   //id_types.push(data[i].id,data[i].types)
+                // For to find all the types of POIS
+                for (let j = 0; j<data[i].types.length; j ++){
+                    check_type = data[i].types[j]
+                    if(!types.includes(check_type)) {
+                         types.push(data[i].types[j])
+                    }
+                }
+              }
+
+              // Block of code to create an array of the types with an array inside from all the ids.
+              for (i in data) {
+                for(numType in data[i].types) {
+                    if ( !(data[i].types[numType] in id_types) ) {
+                        id_types[data[i].types[numType]]=[];
+                        id_types[data[i].types[numType]].push([data[i].id]);
+                        }
+                        else{
+                        id_types[data[i].types[numType]].push([data[i].id]);
+                        }
+                }
+              }
+            
+              // Creating different table for each type
+              for(dtypes in types){
+                let name = "pois_" + types[dtypes]
+                db.query("create table if not exists " + name + " (POIs_ID varchar(255));");
+              }
+            
+            // Insert Ids from our previous array to each table individually
+            for(numType in id_types) {
+                let name = "pois_" + numType
+                let types_load = id_types[numType]
+                let sql_types = "insert ignore into "+name+" (POIs_ID) values ?";
+                //Database Query to insert the data
+                db.query(sql_types, [types_load], (err, result) => {
+                if (err) throw err;
+                console.log("rows affected " + result.affectedRows);
+              });
+            }
+
+            db.query("DROP TABLE IF EXISTS name,pois_point_of_interest;")
        } catch (error) {
             console.log('Error parsing JSON', err)
        }
