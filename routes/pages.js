@@ -44,4 +44,5 @@ router.get('/map', authController.isLoggedIn,  (req,res) => {
     }
 })
 
+
 module.exports = router
