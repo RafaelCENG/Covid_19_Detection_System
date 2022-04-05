@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.0.22 - April 04, 2022
+**Added:**
+    -Loading of JSON data into Database Using MySQL
 
 ## v0.0.21 - March. 17, 2022
 **Added:**
