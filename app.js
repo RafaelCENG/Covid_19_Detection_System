@@ -76,7 +76,6 @@ fs.readFile('../points/starting_pois.json', 'utf-8', (err, jsonString) => {
            let id_types = {};
            let check_type;
             for (let i = 0; i < data.length; i++) {
-                   //id_types.push(data[i].id,data[i].types)
                 // For to find all the types of POIS
                 for (let j = 0; j<data[i].types.length; j ++){
                     check_type = data[i].types[j]
