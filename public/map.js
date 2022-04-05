@@ -16,6 +16,17 @@ var lc = L.control.locate().addTo(map);
 lc.start();
 
 
+//creating the search bar and add to map
+L.Control.geocoder().addTo(map);
+
+//markers
+L.geoJSON(specific).addTo(map);
+
+
+
+
+
+
 
 // L.control.locate({
 //   position: 'topleft',  // set the location of the control
