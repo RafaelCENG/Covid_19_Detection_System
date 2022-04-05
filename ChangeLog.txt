@@ -20,4 +20,3 @@ Initial release.
     -Submitting a form for Register
     -Some server-sided coding
 
-    test1
