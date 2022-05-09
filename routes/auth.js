@@ -12,4 +12,5 @@ router.post('/login', authController.login)
 // GET for the logout
 router.get('/logout', authController.logout)
 
+
 module.exports = router

@@ -4,13 +4,13 @@ const mysql = require("mysql")
 const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 const fs = require ('fs')
-const { INT24 } = require("mysql/lib/protocol/constants/types")
+const bodyParser = require('body-parser');
+
 
 dotenv.config({ path: './.env'})
 
 // Using express for our server
 const app = express()
-
 
 
 // Database connection
@@ -24,14 +24,23 @@ const db = mysql.createConnection({
 const publicDirectory = path.join(__dirname, './public' )
 app.use(express.static(publicDirectory))
 
+
+
+
+
+console.log(__dirname)
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: false }))
+
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json())
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // View engine. HandleBars
 app.set('view engine', 'hbs')
+
+
 
 
 // Connect to database
@@ -46,6 +55,27 @@ db.connect( (error) => {
 // Define Routes
 app.use('/', require('./routes/pages'))
 app.use('/auth', require('./routes/auth'))
+
+app.post('/getUsers', function(req,res){
+//console.log(req.body.search)
+//console.log(req.body.search)
+// WHERE name  LIKE 'req.body.search'
+ db.query("SELECT name FROM pois WHERE name LIKE '%" + req.body.search + "%' LIMIT 5", function (err, rows) {
+    if (err) {
+     // console.log('err loading data');
+      res.json({
+        msg: 'error'
+      })
+    } else {
+   //  console.log('table loading success');
+    //console.log(rows);
+      res.json({
+        msg: 'success',
+        names: rows
+        });
+    }
+  })
+})
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000")

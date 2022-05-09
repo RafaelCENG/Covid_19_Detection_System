@@ -20,12 +20,97 @@ lc.start();
 L.Control.geocoder().addTo(map);
 
 //markers
-L.geoJSON(specific).addTo(map);
+// L.geoJSON(specific).addTo(map);
 
 
+/*
+
+$(document).ready(function(){
+  $("#search").keyup(function(){
+      var search = $(this).val();
+      if(search != ""){
+          $.ajax({
+              url: 'http://localhost:5000/getUsers',
+              type: 'GET',
+              data: {search: name},
+              dataType: 'json',
+              success:function(response){
+              
+                  var len = response.length;
+                  $("#display").empty();
+                  for( var i = 0; i<len; i++){
+                      var id = response[i]['id'];
+                      var name = response[i]['name'];
+
+                      $("#display").append("<li value='"+id+"'>"+name+"</li>");
+
+                  }
+
+                  // binding click event to li
+                  $("#display li").bind("click",function(){
+                      setText(this);
+                  });
+
+              }
+          });
+      }
+
+  });
+
+});
+*/
+
+function renderResults(results) {
+  if (!results.length) {
+    return searchWrapper.classList.remove('show');
+  }
+  console.log(results)
+  const content = results
+    .map((item) => {
+      return `<li>${item.name}</li>`;
+    })
+    .join('');
+
+  searchWrapper.classList.add('show');
+  resultsWrapper.innerHTML = `<ul>${content}</ul>`;
+}
+
+const searchWrapper = document.querySelector('.wrapper');
+const resultsWrapper = document.querySelector('.results');
 
 
-
+$(document).ready(function() {
+  //On pressing a key on "Search box" in "search.php" file. This function will be called.
+  $("#search").keyup(function() {
+    //AJAX is called.
+    var name = $('#search').val();
+          $.ajax({
+              //AJAX type is "Post".
+              type: "POST",
+              //Data will be sent to "ajax.php".
+              url: "/getUsers",
+              //Data, that will be sent to "ajax.php".
+              data: {
+                  //Assigning value of "name" into "search" variable.
+                  search: name
+              },
+              //If result found, this funtion will be called.
+              success: function(html) {
+                let arr = html.names
+              //  console.log(arr)
+             //   console.log(html.names[0].name)
+                let results = []
+                if (name.length) {
+                  results = arr.filter((item) => {
+                    console.log("This item " + item.name)
+                    return item.name.toLowerCase().includes(name.toLowerCase());
+                  });
+                }
+                renderResults(results)
+              }
+            })
+  })
+})
 
 
 // L.control.locate({

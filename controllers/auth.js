@@ -117,11 +117,11 @@ exports.isLoggedIn = async (req, res, next) => {
             process.env.JWT_SECRET
             )
 
-            console.log(decoded)
+            //console.log(decoded)
 
             // 2) Check if the user still exists
             db.query('SELECT * FROM users  WHERE id = ?', [decoded.id], (error, result) => {
-                console.log(result)
+                //console.log(result)
 
                 if(!result) {
                     return next()
