@@ -9,11 +9,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.control.scale({imperial: true, metric: true}).addTo(map);
   
 
-
 // create control and add to map
 var lc = L.control.locate().addTo(map);
 // request location update and set location
 lc.start();
+
+
+
 
 
 //creating the search bar and add to map
@@ -60,24 +62,10 @@ $(document).ready(function(){
 });
 */
 
-function renderResults(results) {
-  if (!results.length) {
-    return searchWrapper.classList.remove('show');
-  }
-  console.log(results)
-  const content = results
-    .map((item) => {
-      return `<li>${item.name}</li>`;
-    })
-    .join('');
 
-  searchWrapper.classList.add('show');
-  resultsWrapper.innerHTML = `<ul>${content}</ul>`;
-}
 
 const searchWrapper = document.querySelector('.wrapper');
 const resultsWrapper = document.querySelector('.results');
-
 
 $(document).ready(function() {
   //On pressing a key on "Search box" in "search.php" file. This function will be called.
@@ -106,11 +94,60 @@ $(document).ready(function() {
                     return item.name.toLowerCase().includes(name.toLowerCase());
                   });
                 }
+               // populateMap(results);
                 renderResults(results)
               }
-            })
+          })
   })
 })
+
+let search = document.querySelector('#search')
+function test () {
+  console.log("My results")
+  console.log(new_results)
+  search.value = ''
+  resultsWrapper.innerHTML = '';
+  populateMap(new_results)
+}
+
+
+//   FUNCTIONS
+
+// Function to find my current location
+function currentLocation() {
+  map.on('locationfound',(e)=>{
+   // console.log(e);
+    lat = e.latlng.lat;
+    lng = e.latlng.lng;
+    console.log(lat,lng)
+  })
+}
+currentLocation();
+
+function renderResults(results) {
+  if (!results.length) {
+    return searchWrapper.classList.remove('show');
+  }
+  console.log(results)
+  const content = results
+    .map((item) => {
+      return `<li>${item.name}</li>`;
+    })
+    .join('');
+
+  searchWrapper.classList.add('show');
+  resultsWrapper.innerHTML = `<ul>${content}</ul>`;
+  new_results = results.slice()
+  return new_results
+}
+
+// Fucntion to populate the map with pop-ups while searching inside the circle
+function populateMap(new_results) {
+  for(i = 0 ; i < new_results.length; i++) {
+    console.log(pois[new_results.item.name].lat)
+    //L.marker([pois[new_results.name].lat, pois[new_results.name].lng]).addTo(map);
+  }
+}
 
 
 // L.control.locate({
