@@ -7,7 +7,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
   // show the scale bar on the lower left corner
 L.control.scale({imperial: true, metric: true}).addTo(map);
-  
+var layerGroup = L.layerGroup().addTo(map);
 
 // create control and add to map
 var lc = L.control.locate().addTo(map);
@@ -68,7 +68,7 @@ const searchWrapper = document.querySelector('.wrapper');
 const resultsWrapper = document.querySelector('.results');
 
 $(document).ready(function() {
-  //On pressing a key on "Search box" in "search.php" file. This function will be called.
+  //On pressing a key on "Search box"  This function will be called.
   $("#search").keyup(function() {
     //AJAX is called.
     var name = $('#search').val();
@@ -76,7 +76,7 @@ $(document).ready(function() {
               //AJAX type is "Post".
               type: "POST",
               //Data will be sent to "ajax.php".
-              url: "/getUsers",
+              url: "/getPoisNames",
               //Data, that will be sent to "ajax.php".
               data: {
                   //Assigning value of "name" into "search" variable.
@@ -102,27 +102,64 @@ $(document).ready(function() {
 })
 
 let search = document.querySelector('#search')
-function test () {
+function test() {
   console.log("My results")
   console.log(new_results)
   search.value = ''
   resultsWrapper.innerHTML = '';
-  populateMap(new_results)
+  let results = new_results.map(a => a.name);
+  console.log("Results")
+  console.log(results)
+  $(document).ready(function() {
+            $.ajax({
+                //AJAX type is "Post".
+                type: "POST",
+                //Data will be sent to "ajax.php".
+                url: "/getMarkers",
+                contentType: 'application/json',
+                datatype: 'json',
+                //Data, that will be sent to "ajax.php".
+                data:  JSON.stringify({ results : results}) ,
+                //If result found, this function will be called.
+                success: function (html) {
+                  // remove all the markers in one go
+                  populateMap(html)
+              //     let arr = html.names
+              //   //  console.log(arr)
+              //  //   console.log(html.names[0].name)
+              //     let results = []
+              //     if (name.length) {
+              //       results = arr.filter((item) => {
+              //         console.log("This item " + item.name)
+              //         return item.name.toLowerCase().includes(name.toLowerCase());
+              //       });
+              //     }
+                 // populateMap(new_results)
+                }
+            })
+ //   })
+  })
 }
 
 
 //   FUNCTIONS
 
 // Function to find my current location
+var lat,lng
 function currentLocation() {
   map.on('locationfound',(e)=>{
-   // console.log(e);
-    lat = e.latlng.lat;
-    lng = e.latlng.lng;
-    console.log(lat,lng)
+    console.log(e);
+    lat = e.latitude;
+    lng = e.longitude;
   })
+  now()
 }
 currentLocation();
+
+function now() {
+  console.log("My latlng " + lat,lng)
+  return [lat,lng]
+}
 
 function renderResults(results) {
   if (!results.length) {
@@ -141,11 +178,21 @@ function renderResults(results) {
   return new_results
 }
 
-// Fucntion to populate the map with pop-ups while searching inside the circle
-function populateMap(new_results) {
-  for(i = 0 ; i < new_results.length; i++) {
-    console.log(pois[new_results.item.name].lat)
-    //L.marker([pois[new_results.name].lat, pois[new_results.name].lng]).addTo(map);
+
+
+// Function to populate the map with pop-ups while searching inside the circle
+function populateMap(html) {
+  // remove all the markers in one go
+  layerGroup.clearLayers();
+  const [lat,lng] =  now();
+  let userPosition = [lat,lng]
+  let thresholdDistance = 5000;    // In meters
+  console.log(html.results.length)
+  for(i = 0; i < html.results.length; i++) {
+    let guardedLocation = [html.results[i].lat, html.results[i].lng]
+    if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
+    L.marker([html.results[i].lat, html.results[i].lng]).addTo(layerGroup);
+    }
   }
 }
 

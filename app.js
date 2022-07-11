@@ -56,7 +56,9 @@ db.connect( (error) => {
 app.use('/', require('./routes/pages'))
 app.use('/auth', require('./routes/auth'))
 
-app.post('/getUsers', function(req,res){
+
+// POST TO GET THE NAME OF POIS WHEN SEARCHING
+app.post('/getPoisNames', function(req,res){
 //console.log(req.body.search)
 //console.log(req.body.search)
 // WHERE name  LIKE 'req.body.search'
@@ -76,6 +78,23 @@ app.post('/getUsers', function(req,res){
     }
   })
 })
+
+// GET LAT AND LNG OF EVERY SEARCH RESULT TO POPULATE THE MAP WITH MARKERS AFTER SEARCHING
+app.post('/getMarkers', function(req,res){
+  let result = req.body
+   db.query("SELECT lat,lng FROM pois WHERE name IN ('" + result.results.join("','") + "')", function (err, rows) {
+      if (err) {
+        res.json({
+          msg: 'error'
+        })
+      } else {
+        res.json({
+          msg: 'success',
+          results: rows
+          });
+      }
+    })
+  })
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000")
