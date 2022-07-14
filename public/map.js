@@ -15,6 +15,10 @@ var lc = L.control.locate().addTo(map);
 lc.start();
 
 
+// array to hold estimations of a place
+let estimations = []
+
+
 
 
 
@@ -102,6 +106,7 @@ $(document).ready(function() {
 })
 
 let search = document.querySelector('#search')
+let populate;
 function test() {
   console.log("My results")
   console.log(new_results)
@@ -111,36 +116,23 @@ function test() {
   console.log("Results")
   console.log(results)
   $(document).ready(function() {
-            $.ajax({
-                //AJAX type is "Post".
-                type: "POST",
-                //Data will be sent to "ajax.php".
-                url: "/getMarkers",
-                contentType: 'application/json',
-                datatype: 'json',
-                //Data, that will be sent to "ajax.php".
-                data:  JSON.stringify({ results : results}) ,
-                //If result found, this function will be called.
-                success: function (html) {
-                  // remove all the markers in one go
-                  populateMap(html)
-              //     let arr = html.names
-              //   //  console.log(arr)
-              //  //   console.log(html.names[0].name)
-              //     let results = []
-              //     if (name.length) {
-              //       results = arr.filter((item) => {
-              //         console.log("This item " + item.name)
-              //         return item.name.toLowerCase().includes(name.toLowerCase());
-              //       });
-              //     }
-                 // populateMap(new_results)
-                }
-            })
- //   })
+         $.ajax({
+            //AJAX type is "Post".
+            type: "POST",
+            //Data will be sent to "ajax.php".
+            url: "/getMarkers",
+            contentType: 'application/json',
+            datatype: 'json',
+            //Data, that will be sent to "ajax.php".
+            data:  JSON.stringify({ results : results}) ,
+            //If result found, this function will be called.
+            success: function (html) {
+               populate = html.results
+               moreInfo(populate)
+            }
+          })
   })
 }
-
 
 //   FUNCTIONS
 
@@ -165,7 +157,6 @@ function renderResults(results) {
   if (!results.length) {
     return searchWrapper.classList.remove('show');
   }
-  console.log(results)
   const content = results
     .map((item) => {
       return `<li>${item.name}</li>`;
@@ -179,23 +170,89 @@ function renderResults(results) {
 }
 
 
-
-// Function to populate the map with pop-ups while searching inside the circle
-function populateMap(html) {
-  // remove all the markers in one go
+function moreInfo(populate) {
+  //clear layerGroup
   layerGroup.clearLayers();
-  const [lat,lng] =  now();
-  let userPosition = [lat,lng]
-  let thresholdDistance = 5000;    // In meters
-  console.log(html.results.length)
-  for(i = 0; i < html.results.length; i++) {
-    let guardedLocation = [html.results[i].lat, html.results[i].lng]
-    if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
-    L.marker([html.results[i].lat, html.results[i].lng]).addTo(layerGroup);
-    }
-  }
+  currentTime = getDateTime();
+  estimations = []
+  console.log('Pop',populate.length)
+  for (i=0; i < populate.length; i++) {
+    let dataSet = [populate[i].id,currentTime[7].toLowerCase(),currentTime[4]+1,currentTime[4]+2]
+    console.log(dataSet)
+    populateMap(dataSet,populate,i)
+   }
 }
 
+// Function to populate the map with pop-ups while searching inside the circle
+
+function populateMap(dataSet,populate,i) {
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/getEstimation",
+    contentType: 'application/json',
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  JSON.stringify({ dataSet : dataSet}) ,
+    //If result found, this function will be called.
+    success: function (html) {
+     const [lat,lng] =  now();
+     let userPosition = [lat,lng]
+     let thresholdDistance = 5000;    // In meters
+     console.log(populate)
+     console.log(html.results)
+     console.log("Populate", populate.length)
+     console.log("I = ", i)
+
+     numEstimation = Object.values(html.results[0])[1] + Object.values(html.results[0])[2]
+     console.log(numEstimation)
+     let guardedLocation = [populate[i].lat, populate[i].lng]
+     console.log(populate[i].lat, populate[i].lng)
+     console.log("New counter", i)
+     if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
+       L.marker([populate[i].lat, populate[i].lng]).addTo(layerGroup)
+       .bindPopup(`My Estimation is ${numEstimation}`)
+       let numEstimation = 0;
+       }
+     }
+  })
+}
+
+function  popUpEstimation(html) {
+  console.log("Res")
+  console.log(html.results[0])
+  estimations.push(html.results[0])
+}
+
+function getDateTime() {
+  var now     = new Date(); 
+  var year    = now.getFullYear();
+  var month   = now.getMonth()+1; 
+  var day     = now.getDate();
+  var hour    = now.getHours();
+  var minute  = now.getMinutes();
+  var second  = now.getSeconds(); 
+    // if(month.toString().length == 1) {
+    //     month = '0'+month;
+    // }
+    if(day.toString().length == 1) {
+        day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        second = '0'+second;
+    }   
+    var dateTime = day+'/'+month+'/'+year+' '+hour+':'+minute+':'+second;
+    var dayInNumber = now.getDay()
+    var dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];   
+    return [dateTime,day,month,year,hour,minute,second,dayOfWeek[dayInNumber]]
+}
 
 // L.control.locate({
 //   position: 'topleft',  // set the location of the control

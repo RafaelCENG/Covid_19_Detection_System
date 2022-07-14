@@ -79,10 +79,35 @@ app.post('/getPoisNames', function(req,res){
   })
 })
 
-// GET LAT AND LNG OF EVERY SEARCH RESULT TO POPULATE THE MAP WITH MARKERS AFTER SEARCHING
+// GET id,lat and lng of every search result to populate the map with markers after searching
 app.post('/getMarkers', function(req,res){
   let result = req.body
-   db.query("SELECT lat,lng FROM pois WHERE name IN ('" + result.results.join("','") + "')", function (err, rows) {
+   db.query("SELECT id,name,lat,lng FROM pois WHERE name IN ('" + result.results.join("','") + "')", function (err, rows) {
+      if (err) {
+        res.json({
+          msg: 'error'
+        })
+      } else {
+        res.json({
+          msg: 'success',
+          results: rows
+          });
+      }
+    })
+  })
+
+
+
+// GET the estimation of a place for the next 2 hours
+app.post('/getEstimation', function(req,res){
+  let myId = req.body.dataSet[0]
+  let myDay =  "pois_"+req.body.dataSet[1]
+  let myNum1 =  req.body.dataSet[2]
+  let myNum2 =  req.body.dataSet[3]
+  console.log("My Data")
+  console.log(myId,myDay,myNum1,myNum2)
+  var sql =  "SELECT POIs_ID, num?, num? FROM ?? WHERE POIs_ID = ?"
+   db.query(sql, [myNum1,myNum2,myDay,myId], function (err, rows) {
       if (err) {
         res.json({
           msg: 'error'
