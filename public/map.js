@@ -1,5 +1,7 @@
 var map = L.map('map')
 
+console.log(current_user)
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
@@ -183,6 +185,15 @@ function moreInfo(populate) {
    }
 }
 
+
+// TESTING
+
+
+
+
+
+// TESTING END
+
 // Function to populate the map with pop-ups while searching inside the circle
 
 function populateMap(dataSet,populate,i) {
@@ -200,20 +211,66 @@ function populateMap(dataSet,populate,i) {
      const [lat,lng] =  now();
      let userPosition = [lat,lng]
      let thresholdDistance = 5000;    // In meters
+     let numEstimation = 0;
      console.log(populate)
      console.log(html.results)
      console.log("Populate", populate.length)
      console.log("I = ", i)
 
      numEstimation = Object.values(html.results[0])[1] + Object.values(html.results[0])[2]
+
+     if (numEstimation < 50) {
+        customUrl = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png"
+     }
+     else if (numEstimation >= 50 && numEstimation <= 150) {
+        customUrl = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png"
+     }
+     else {
+        customUrl = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"
+     }
+
+     //ICON COLOURS
+     var Icon = new L.Icon({
+      iconUrl: customUrl,
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],        
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+     });
+
+     var Popup = L.popup ()
+      .setLatLng([populate[i].lat, populate[i].lng])
+      .setContent(`My Estimation is ${numEstimation} ` + "Location Name "  + populate[i].name + visit)
+
      console.log(numEstimation)
      let guardedLocation = [populate[i].lat, populate[i].lng]
      console.log(populate[i].lat, populate[i].lng)
      console.log("New counter", i)
+     // Create Button For the PopUp
+    //  defineYourWaypointOnClick(e: any) {
+    //  var container = L.DomUtil.create('div'),
+    //  startBtn = this.createButton('Start from this location', container),
+    //  destBtn = this.createButton('Go to this location', container);
+
+    //  L.DomEvent.on(startBtn, 'click', () => {
+    //   alert("toto");
+    //  });
+    
+    //  L.DomEvent.on(destBtn, 'click', () => {
+    //   alert("tata");
+    //  });
+    
+    //  createButton(label: string, container: any) {
+    //   var btn = L.DomUtil.create('button', '', container);
+    //   btn.setAttribute('type', 'button');
+    //   btn.innerHTML = label;
+    //   return btn;
+    //  }
+    // }
      if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
-       L.marker([populate[i].lat, populate[i].lng]).addTo(layerGroup)
-       .bindPopup(`My Estimation is ${numEstimation}`)
-       let numEstimation = 0;
+       L.marker([populate[i].lat, populate[i].lng], {icon: Icon,}).addTo(layerGroup)
+       .bindPopup(Popup,visit); 
        }
      }
   })
@@ -253,6 +310,33 @@ function getDateTime() {
     var dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];   
     return [dateTime,day,month,year,hour,minute,second,dayOfWeek[dayInNumber]]
 }
+
+// Function to add the visit in the database from user. Also he can add an estimation of people in the place if he wants.
+let visit = `<button type="submit" class="leaflet-touch leaflet-control-geocoder-icon" onclick="showConfirmBox()">Click</button>`
+//function addVisit(){
+  function showConfirmBox() {
+    document.getElementById("overlay").hidden = false;
+  }
+  function closeConfirmBox() {
+    document.getElementById("overlay").hidden = true;
+  }
+  
+  function isConfirm(answer) {
+    if (answer) {
+      var n = prompt("Check your number", "Type your number here");
+      n = parseInt(n);
+      if (Number.isInteger(n)) {
+        alert("Integer")
+        //console.log()
+      }
+      else {
+        alert("Answer is no");
+      }
+      closeConfirmBox();
+    }
+}
+
+
 
 // L.control.locate({
 //   position: 'topleft',  // set the location of the control

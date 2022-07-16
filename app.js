@@ -57,6 +57,7 @@ app.use('/', require('./routes/pages'))
 app.use('/auth', require('./routes/auth'))
 
 
+
 // POST TO GET THE NAME OF POIS WHEN SEARCHING
 app.post('/getPoisNames', function(req,res){
 //console.log(req.body.search)

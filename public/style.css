@@ -67,28 +67,7 @@ nav li a:hover {
     outline: none;
   }
   
-  button {
-    position: absolute;
-    border: none;
-    background: none;
-    top: 0;
-    right: 0;
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-    width: 50px;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  button i {
-    width: 100%;
-    color: #6d7b98;
-    line-height: 50px;
-    font-size: 22px;
-  }
+
   
   .results {
     padding: 0px;
@@ -116,3 +95,4 @@ nav li a:hover {
   .results ul li:hover {
     background: #ececec
   }
+
