@@ -269,7 +269,7 @@ function populateMap(dataSet,populate,i) {
     //  }
     // }
      if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
-       L.marker([populate[i].lat, populate[i].lng], {icon: Icon,}).addTo(layerGroup)
+       L.marker([populate[i].lat, populate[i].lng], {icon: Icon,}).on('click', markerOnClick).addTo(layerGroup)
        .bindPopup(Popup,visit); 
        }
      }
@@ -321,13 +321,43 @@ let visit = `<button type="submit" class="leaflet-touch leaflet-control-geocoder
     document.getElementById("overlay").hidden = true;
   }
   
+// Function to get the Lat and Lng of the clicked Marker
+var namePois;
+var idPois;
+function markerOnClick(e)
+{
+  console.log(e)
+  //alert("hi. you clicked the marker at " + e.latlng.lat +e.latlng.lng);
+  results = [e.latlng.lat,e.latlng.lng]
+  console.log(results)
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/getNameIDPoiS",
+    contentType: 'application/json',
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  JSON.stringify({ results: results}) ,
+    //If result found, this function will be called.
+    success: function (html) {
+      console.log(html.results)
+      namePois = html.results[0].name
+      idPois = html.results[0].id
+    }
+  })
+}
+
   function isConfirm(answer) {
     if (answer) {
+      visitTimestamp = new Date()
+      console.log(visitTimestamp)
       var n = prompt("Check your number", "Type your number here");
       n = parseInt(n);
       if (Number.isInteger(n)) {
         alert("Integer")
-        //console.log()
+        console.log(current_user.id)
+        console.log(current_user.username)
       }
       else {
         alert("Answer is no");

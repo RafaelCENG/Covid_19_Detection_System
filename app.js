@@ -80,6 +80,8 @@ app.post('/getPoisNames', function(req,res){
   })
 })
 
+
+
 // GET id,lat and lng of every search result to populate the map with markers after searching
 app.post('/getMarkers', function(req,res){
   let result = req.body
@@ -118,6 +120,27 @@ app.post('/getEstimation', function(req,res){
           msg: 'success',
           results: rows
           });
+      }
+    })
+  })
+
+// GET THE NAME AND ID WHEN A MARKER IS CLICKED
+app.post('/getNameIDPoiS', function(req,res){
+  console.log(req.body)
+  let clicked_lat =  parseFloat(req.body.results[0])
+  let clicked_lng =  req.body.results[1]
+  console.log(clicked_lat,clicked_lng)
+  var sql =  'SELECT name,id FROM pois WHERE lat = ? and lng = ? '
+   db.query(sql, [clicked_lat,clicked_lng], function (err, rows) {
+      if (err) {
+        res.json({
+          msg: 'error'
+        })
+      } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
       }
     })
   })
