@@ -145,6 +145,56 @@ app.post('/getNameIDPoiS', function(req,res){
     })
   })
 
+ //LOAD DATA FROM THE USER VISITATION OF A PLACE
+  app.post('/insertVisitation', function(req,res){
+    var sql =  'INSERT ignore INTO pois_visit(user_id, user_username, name_of_pois, id_of_pois, Timestamp, num_of_people) VALUES (?,?,?,?,?,?) '
+     db.query(sql, req.body.data, function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+    })
+  
+  //CHECK USER IF HE IS ALREADY A CONFIRMED  CASE
+  app.post('/checkCase', function(req,res){
+    var sql =  'SELECT username,time  FROM confirmed_case WHERE username = ?'
+     db.query(sql, req.body.name, function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+    })
+  //LOAD CONFIRMED NEW CASE
+  app.post('/confirmedCase', function(req,res){
+    var sql =  'INSERT ignore INTO confirmed_case(username) VALUES (?) '
+     db.query(sql, req.body.name, function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+    })
+
 app.listen(5000, () => {
     console.log("Server started on Port 5000")
 })

@@ -349,24 +349,118 @@ function markerOnClick(e)
 }
 
   function isConfirm(answer) {
-    if (answer) {
-      visitTimestamp = new Date()
+    console.log(new Date())
+    visitTimestamp = new Date()
+    visitTimestamp = visitTimestamp.toISOString().split('T')[0]+' '+visitTimestamp.toTimeString().split(' ')[0];
+    console.log(visitTimestamp)
+    let data = [current_user.id,current_user.username,namePois,idPois,visitTimestamp]
+    if (answer) { 
       console.log(visitTimestamp)
       var n = prompt("Check your number", "Type your number here");
       n = parseInt(n);
       if (Number.isInteger(n)) {
-        alert("Integer")
-        console.log(current_user.id)
-        console.log(current_user.username)
+        data.push(n)
+        console.log(data)
+        $.ajax({
+          //AJAX type is "Post".
+          type: "POST",
+          //Data will be sent to "ajax.php".
+          url: "/insertVisitation",
+          contentType: 'application/json',
+          datatype: 'json',
+          //Data, that will be sent to "ajax.php".
+          data:  JSON.stringify({ data: data}) ,
+          //If result found, this function will be called.
+          success: function (html) {
+            console.log(html)
+          }
+        })
       }
       else {
-        alert("Answer is no");
+        alert("The number is not an integer please try again")
+        closeConfirmBox();
+      }
+    }
+      else {
+        data.push(0)
+        $.ajax({
+          //AJAX type is "Post".
+          type: "POST",
+          //Data will be sent to "ajax.php".
+          url: "/insertVisitation",
+          contentType: 'application/json',
+          datatype: 'json',
+          //Data, that will be sent to "ajax.php".
+          data:  JSON.stringify({ data: data}) ,
+          //If result found, this function will be called.
+          success: function (html) {
+            console.log(html)
+          }
+        })
       }
       closeConfirmBox();
+}
+//Function to add the user as a new confirmed case
+function newCase() {
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/confirmedCase",
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  {name: current_user.username},
+    //If result found, this function will be called.
+    success: function (html) {
+      console.log(html)
     }
+  })
 }
 
+// Function to check if the user is already a confirmed case
+function checkCase(){
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/checkCase",
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  {name: current_user.username},
+    //If result found, this function will be called.
+    success: function (html) {
+      //console.log(html.results[0].time)
+      if (html.results.length > 0 ) {
+        var result = html.results[0].time
+        var today = new Date();
+        today = today.toISOString()     
+        const DAY_UNIT_IN_MILLISECONDS = 24 * 3600 * 1000
+        const diffInMilliseconds = new Date(today).getTime() - new Date(result).getTime()
+        const diffInDays = diffInMilliseconds / DAY_UNIT_IN_MILLISECONDS
+        console.log(diffInDays)
+        if (diffInDays > 14) {
+          newCase()
+        }
+        else {
+          alert("Already a confirmed Case")
+        }
+      }
+      else {
+        newCase()
+      }
+    }
+  })
+}
 
+document.getElementById('case').onclick = function() {
+  if (confirm("Are you sure you are positive?") == true) {
+    checkCase()
+    console.log(current_user.username)
+
+  } else {
+    alert("You pressed Cancel!");
+  }
+}
 
 // L.control.locate({
 //   position: 'topleft',  // set the location of the control
