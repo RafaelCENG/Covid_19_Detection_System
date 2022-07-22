@@ -195,6 +195,40 @@ app.post('/getNameIDPoiS', function(req,res){
       })
     })
 
+  //GET THE DATA OF ALL CONFIRMED CASES SEVEN DAYS FROM NOW EXCEPT CURRENT_USER
+  app.post('/sevenDays', function(req,res){
+    var sql =  'SELECT *  FROM confirmed_case WHERE username != ?'
+     db.query(sql, req.body.name, function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+    })
+
+  // Common POIS for the current_user and the confirmed Case
+  app.post('/commonPois', function(req,res){
+      var sql =  "SELECT DISTINCT u2.user_username as user ,u1.id_of_pois as id_of_pois , u2.Timestamp as T2, u1.Timestamp as T1  FROM pois_visit u1, pois_visit u2 WHERE u1.user_username = ? AND u2.user_username = ? AND u1.id_of_pois = u2.id_of_pois AND TIMESTAMPDIFF(HOUR, u1.Timestamp,u2.Timestamp) BETWEEN -2 AND 2"
+      db.query(sql, [req.body.current,req.body.name], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+  })
+
 app.listen(5000, () => {
     console.log("Server started on Port 5000")
 })

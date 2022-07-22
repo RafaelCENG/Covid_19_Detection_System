@@ -54,7 +54,6 @@ router.get('/map', authController.isLoggedIn, (req,res) => {
     }
 })
 
-
 // // /getUsersData
 // router.get('/getData', function (req, res, next) {
 //     db.query('SELECT name FROM pois', function (err, row) {

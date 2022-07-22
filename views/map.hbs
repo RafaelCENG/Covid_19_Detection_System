@@ -58,6 +58,9 @@
     {{!-- Confirmed Case Button --}}
     <button id="case" class="btn btn-outline-danger" type="submit" value="Submit">Confirmed Case</button>
 
+     {{!-- Possible contact with case Button --}}
+    <button id="possible_case" class="btn btn-outline-danger" type="submit" value="Submit" onclick="sevenDaysConfirmed()">Possible Contact with Case</button>
+
     {{!-- Confirmation box --}}
     <div class="overlay" id="overlay" hidden>
     <div class="confirm-box">
@@ -68,6 +71,9 @@
       <button class ="defaultButton" onclick="isConfirm(false)">No</button>
     </div>
   </div>
+
+
+  
 
     <script>var current_user = {{{user}}} </script>
     <script src="/map.js"></script>
