@@ -18,7 +18,8 @@ const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
+    database: process.env.DATABASE_NAME,
+    timezone: 'utc'  //<-here this line was missing
 })
 
 const publicDirectory = path.join(__dirname, './public' )
@@ -214,7 +215,7 @@ app.post('/getNameIDPoiS', function(req,res){
 
   // Common POIS for the current_user and the confirmed Case
   app.post('/commonPois', function(req,res){
-      var sql =  "SELECT DISTINCT u2.user_username as user ,u1.id_of_pois as id_of_pois , u2.Timestamp as T2, u1.Timestamp as T1  FROM pois_visit u1, pois_visit u2 WHERE u1.user_username = ? AND u2.user_username = ? AND u1.id_of_pois = u2.id_of_pois AND TIMESTAMPDIFF(HOUR, u1.Timestamp,u2.Timestamp) BETWEEN -2 AND 2"
+      var sql =  "SELECT DISTINCT u2.user_username as user ,u1.id_of_pois as id_of_pois , u2.Timestamp as T2, u1.Timestamp as T1, u1.name_of_pois as name  FROM pois_visit u1, pois_visit u2 WHERE u1.user_username = ? AND u2.user_username = ? AND u1.id_of_pois = u2.id_of_pois AND TIMESTAMPDIFF(HOUR, u1.Timestamp,u2.Timestamp) BETWEEN -2 AND 2"
       db.query(sql, [req.body.current,req.body.name], function (err, rows) {
         if (err) {
           res.json({
