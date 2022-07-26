@@ -43,11 +43,24 @@ router.get('/profile', authController.isLoggedIn,  (req,res) => {
 
 //  Leaflet(HomePage) Route
 router.get('/map', authController.isLoggedIn, (req,res) => {
-    if ( req.user ) {
+    if ( req.user.admin == 0 ) {
         var renderUser = {
             user: JSON.stringify(req.user)
           }
         res.render('map', renderUser)
+
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// Admin HomePage Route
+router.get('/admin', authController.isLoggedIn, (req,res) => {
+    if ( req.user.admin == 1 ) {
+        var renderUser = {
+            user: JSON.stringify(req.user)
+          }
+        res.render('admin', renderUser)
 
     } else {
         res.redirect('/login')
