@@ -33,8 +33,49 @@ router.get('/login', (req,res) => {
 router.get('/profile', authController.isLoggedIn,  (req,res) => {
     if ( req.user ) {
         res.render('profile', {
+            local_user: JSON.stringify(req.user),
             user: req.user
         })
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// User Visit History Route
+router.get('/visit_history', authController.isLoggedIn,  (req,res) => {
+    if ( req.user ) {
+        var userid = req.user.id;
+        db.query('SELECT name_of_pois,Timestamp from pois_visit where user_id = ?', userid, function(error, results, feilds) {
+            if (error) {
+                console.log("error ocurred while getting user details of " + userid, error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                });
+            } else {
+                res.render("visit_history",{visits:results});
+            }
+        });
+    } else {
+        res.redirect('/login')
+    }
+})
+
+// User Case History Route
+router.get('/case_history', authController.isLoggedIn,  (req,res) => {
+    if ( req.user ) {
+        var username = req.user.username;
+        db.query('SELECT time from confirmed_Case where username = ?', username, function(error, results, fields) {
+            if (error) {
+                console.log("error ocurred while getting user details of " + username, error);
+                res.send({
+                    "code": 400,
+                    "failed": "error ocurred"
+                });
+            } else {
+                res.render("case_history",{cases:results});
+            }
+        });
     } else {
         res.redirect('/login')
     }

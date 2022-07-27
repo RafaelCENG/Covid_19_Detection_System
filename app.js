@@ -5,7 +5,9 @@ const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 const fs = require ('fs')
 const bodyParser = require('body-parser');
-
+const bcrypt = require('bcryptjs')
+const schemas = require('./../Web-Project/controllers/json_schema');
+const Ajv = require("ajv")
 
 dotenv.config({ path: './.env'})
 
@@ -229,6 +231,94 @@ app.post('/getNameIDPoiS', function(req,res){
         }
       })
   })
+
+    // Update user username with the new one.
+    app.post('/new_username', function(req,res){
+      console.log(req.body)
+      var sql =  "UPDATE users SET username = ? WHERE id = ?;"
+      db.query(sql, [req.body.dataSet[1],req.body.dataSet[0]], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+  })
+
+  // Check if given current password equals to the one saved in db
+  app.post('/checkPass', function(req,res){
+      var sql =  "SELECT password FROM users WHERE id = ?;"
+      db.query(sql, [req.body.dataSet[0]], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          const match =  bcrypt.compareSync(req.body.dataSet[1],rows[0].password);
+          if(match) {
+            res.json({
+              msg: 'success',
+              results: rows
+            });
+          }
+        }
+      })
+  })
+  // Change current password with the new one and store it as hashed.
+  app.post('/changePass', function(req,res){
+    const hash = bcrypt.hashSync(req.body.dataSet[2], 8);
+    var sql =  "UPDATE users SET password = ? WHERE id = ?;"
+    db.query(sql, [hash,req.body.dataSet[0]], function (err, rows) {
+      if (err) {
+        res.json({
+          msg: 'error'
+        })
+      } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+      }
+    })
+})
+
+
+
+// User History Visit Route
+app.post('/visits', function(req,res){
+  console.log(req)
+  var sql = 'SELECT name_of_pois,Timestamp from pois_visit where user_id = ?'
+
+    db.query(sql, id, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+
+var innerSchema = schemas.jsonSchema;
+
+var innerArraySchema = {
+  "type": "array",
+  "items" : innerSchema
+  }
+const ajv = new Ajv()
+const data = {foo: 1, bar: "abc"}
+const valid = ajv.validate(innerArraySchema, data)
+if (!valid) console.log(ajv.errors)
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000")

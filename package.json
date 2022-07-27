@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/RafaelCENG/Covid_19_Detection_System#readme",
   "dependencies": {
+    "ajv": "^8.11.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
