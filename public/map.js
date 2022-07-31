@@ -18,7 +18,7 @@ lc.start();
 
 
 // array to hold estimations of a place
-let estimations = []
+//let estimations = []
 
 
 
@@ -176,7 +176,7 @@ function moreInfo(populate) {
   //clear layerGroup
   layerGroup.clearLayers();
   currentTime = getDateTime();
-  estimations = []
+  //estimations = []
   console.log('Pop',populate.length)
   for (i=0; i < populate.length; i++) {
     let dataSet = [populate[i].id,currentTime[7].toLowerCase(),currentTime[4]+1,currentTime[4]+2]
@@ -276,11 +276,11 @@ function populateMap(dataSet,populate,i) {
   })
 }
 
-function  popUpEstimation(html) {
-  console.log("Res")
-  console.log(html.results[0])
-  estimations.push(html.results[0])
-}
+// function  popUpEstimation(html) {
+//   console.log("Res")
+//   console.log(html.results[0])
+//   estimations.push(html.results[0])
+// }
 
 function getDateTime() {
   var now     = new Date(); 
@@ -329,7 +329,7 @@ function markerOnClick(e)
   console.log(e)
   //alert("hi. you clicked the marker at " + e.latlng.lat +e.latlng.lng);
   results = [e.latlng.lat,e.latlng.lng]
-  console.log(results)
+  console.log("Results",results)
   $.ajax({
     //AJAX type is "Post".
     type: "POST",
@@ -461,6 +461,123 @@ document.getElementById('case').onclick = function() {
     alert("You pressed Cancel!");
   }
 }
+
+// document.getElementById('possible_case').onClick = function() {
+//   alert("Check")
+//   sevenDaysConfirmed();
+// }
+
+// Function to get all the users which are confirmed cases from the current date
+function sevenDaysConfirmed() {
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/sevenDays",
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  {name: current_user.username},
+    //If result found, this function will be called.
+    success: function (html) {
+      let arr = []
+      let users_arr = []
+      let common_pois_confirmed_arr = []
+      //console.log(html.results[0].time)
+      if (html.results.length > 0 ) {   
+        for (i = 0; i < html.results.length; i++) {
+          var today = new Date();
+          today = today.toISOString()
+          var result = html.results[i].time
+          DAY_UNIT_IN_MILLISECONDS = 24 * 3600 * 1000
+          diffInMilliseconds = new Date(today).getTime() - new Date(result).getTime() 
+          diffInDays = diffInMilliseconds / DAY_UNIT_IN_MILLISECONDS 
+          if (diffInDays < 7) {
+            arr.push([html.results[i].username,result])
+            users_arr.push(html.results[i].username)
+          }
+        }
+        if (users_arr.length > 0) {
+          let flag = 0;
+          let usersFlag = users_arr.length;
+          for (i=0; i < users_arr.length; i++) {
+            flag ++
+            let user = users_arr[i]
+            findPois(user,common_pois_confirmed_arr,arr,flag,usersFlag)
+           }
+        }
+        else {
+          alert("No contacts the past 7 days")
+        }
+      }
+      else {
+        alert("Zero Confirmed Cases")
+      }
+    }
+  })
+}
+
+// Function to find cases that are +-2 hours from the confirmed case and no more than 7 days have pass.
+function findPois(user,common_pois_confirmed_arr,arr,flag,usersFlag){
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/commonPois",
+    datatype: 'json',
+    //Data, that will be sent to "ajax.php".
+    data:  {current: current_user.username, name: user},
+    //If result found, this function will be called.
+    success: function (html) {
+      for (j = 0; j < html.results.length; j++) {
+        common_pois_confirmed_arr.push([html.results[j].user,html.results[j].id_of_pois,html.results[j].T2,html.results[j].T1,html.results[j].name])
+      }
+      console.log(common_pois_confirmed_arr)
+      userB_sevenDaysCase(common_pois_confirmed_arr,arr,flag,usersFlag);
+    }
+  })
+}
+
+
+// Function to check if userB has been diagnosed as a case within 7 days of the visit.
+function userB_sevenDaysCase(common_pois_confirmed_arr,arr,flag,usersFlag) {
+  let FinalArr = []
+  console.log("Users confirmes cases",arr)
+  console.log("Common pois" ,common_pois_confirmed_arr)
+  console.log(common_pois_confirmed_arr.length)
+  for (i = 0; i < common_pois_confirmed_arr.length; i ++) {
+    var searchUser = common_pois_confirmed_arr[i][0];
+    var user_time = [];
+    arr.forEach(e => {
+      if (e[0] == searchUser) {
+        user_time.push(e.slice(1));
+      }
+    });
+    DAY_UNIT_IN_MILLISECONDS = 24 * 3600 * 1000
+    diffInMilliseconds = new Date(common_pois_confirmed_arr[i][3]).getTime() - new Date(user_time[0]).getTime() 
+    diffInDays = diffInMilliseconds / DAY_UNIT_IN_MILLISECONDS
+    if( -7<= diffInDays <= 7) {
+      FinalArr.push(common_pois_confirmed_arr[i])
+      console.log("Diff in days",diffInDays)
+    }
+  }
+  console.log(FinalArr)
+  if (flag == usersFlag) {
+    var ul = document.getElementById('modal-body')
+    document.getElementById("modal-body").innerHTML = "";
+
+    FinalArr.forEach(function(e) {
+        var li = document.createElement("li")
+        visitTimestamp = new Date(e[3])
+        visitTimestamp = visitTimestamp.toISOString().split('T')[0]+' '+visitTimestamp.toTimeString().split(' ')[0];
+        console.log(visitTimestamp)
+        li.innerText = e[4] + " " + visitTimestamp;
+        console.log(li)
+        ul.append(li)
+    })
+  }
+}
+
+
 
 // L.control.locate({
 //   position: 'topleft',  // set the location of the control

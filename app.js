@@ -5,6 +5,10 @@ const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 const fs = require ('fs')
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs')
+const schemas = require('./../Web-Project/controllers/json_schema');
+const Ajv = require("ajv")
+const multer = require('multer');
 
 
 dotenv.config({ path: './.env'})
@@ -18,7 +22,8 @@ const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
+    database: process.env.DATABASE_NAME,
+    timezone: 'utc'  //<-here this line was missing
 })
 
 const publicDirectory = path.join(__dirname, './public' )
@@ -195,17 +200,223 @@ app.post('/getNameIDPoiS', function(req,res){
       })
     })
 
+  //GET THE DATA OF ALL CONFIRMED CASES SEVEN DAYS FROM NOW EXCEPT CURRENT_USER
+  app.post('/sevenDays', function(req,res){
+    var sql =  'SELECT *  FROM confirmed_case WHERE username != ?'
+     db.query(sql, req.body.name, function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+    })
+
+  // Common POIS for the current_user and the confirmed Case
+  app.post('/commonPois', function(req,res){
+      var sql =  "SELECT DISTINCT u2.user_username as user ,u1.id_of_pois as id_of_pois , u2.Timestamp as T2, u1.Timestamp as T1, u1.name_of_pois as name  FROM pois_visit u1, pois_visit u2 WHERE u1.user_username = ? AND u2.user_username = ? AND u1.id_of_pois = u2.id_of_pois AND TIMESTAMPDIFF(HOUR, u1.Timestamp,u2.Timestamp) BETWEEN -2 AND 2"
+      db.query(sql, [req.body.current,req.body.name], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+  })
+
+    // Update user username with the new one.
+    app.post('/new_username', function(req,res){
+      console.log(req.body)
+      var sql =  "UPDATE users SET username = ? WHERE id = ?;"
+      db.query(sql, [req.body.dataSet[1],req.body.dataSet[0]], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+        }
+      })
+  })
+
+  // Check if given current password equals to the one saved in db
+  app.post('/checkPass', function(req,res){
+      var sql =  "SELECT password FROM users WHERE id = ?;"
+      db.query(sql, [req.body.dataSet[0]], function (err, rows) {
+        if (err) {
+          res.json({
+            msg: 'error'
+          })
+        } else {
+          const match =  bcrypt.compareSync(req.body.dataSet[1],rows[0].password);
+          if(match) {
+            res.json({
+              msg: 'success',
+              results: rows
+            });
+          }
+        }
+      })
+  })
+  // Change current password with the new one and store it as hashed.
+  app.post('/changePass', function(req,res){
+    const hash = bcrypt.hashSync(req.body.dataSet[2], 8);
+    var sql =  "UPDATE users SET password = ? WHERE id = ?;"
+    db.query(sql, [hash,req.body.dataSet[0]], function (err, rows) {
+      if (err) {
+        res.json({
+          msg: 'error'
+        })
+      } else {
+          res.json({
+            msg: 'success',
+            results: rows
+          });
+      }
+    })
+})
+
+
+
+// User History Visit Route
+app.post('/visits', function(req,res){
+  console.log(req)
+  var sql = 'SELECT name_of_pois,Timestamp from pois_visit where user_id = ?'
+
+    db.query(sql, id, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+// Total Visits
+app.post('/total_visits', function(req,res){
+  var sql = 'SELECT COUNT(*) FROM pois_visit; '
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+// Total Confirmed Cases
+app.post('/total_cases', function(req,res){
+  var sql = 'SELECT COUNT(*) FROM confirmed_case; '
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+// View all Pois
+app.post('/viewAll', function(req,res){
+  var sql = 'SELECT id,name,address,rating,rating_n from pois_visit'
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+//UPLOAD FILE READER
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'points')
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, originalname)
+  }
+})
+
+const upload  = multer ({ storage })
+
+
+app.post("/uploadFile",upload.single('fileupload'),(req, res, next) => {
+    // Read File Before Uploading
+    const absolutePath = path.join(__dirname, req.file.path);
+    const jsonString = fs.readFileSync(absolutePath, "utf-8");
+    const jsonObject = JSON.parse(jsonString);
+    nameFile = path.basename(absolutePath)
+
+    //JSON SCHEMA VALIDATOR
+    var innerSchema = schemas.jsonSchema;
+    var innerArraySchema = {
+      "type": "array",
+      "items" : innerSchema
+      }
+    const ajv = new Ajv()
+    const valid = ajv.validate(innerArraySchema, jsonObject)
+    if (!valid) {
+      fs.unlinkSync(req.file.path)
+      res.redirect('admin')
+    }
+    else {
+    console.log(nameFile)
+    rFile(nameFile)
+    res.redirect('admin')
+    }
+})
+
+
 app.listen(5000, () => {
     console.log("Server started on Port 5000")
 })
 
 //Load JSON DATA to MySQL
 
-fs.readFile('../Covid_19_Detection_System/points/starting_pois.json', 'utf-8', (err, jsonString) => {
+rFile("starting_pois.json")
+function rFile(fileName) {
+  fs.readFile(`./points/${fileName}`, 'utf-8', (err, jsonString) => {
+
     if (err) {
         console.log(err)
     } else {
-       try {           
+       try {    
+            console.log('Testing')       
             const data = JSON.parse(jsonString)
             // Insert Data To Pois Table
             let sql_main = `insert ignore into pois(id,name,address,lat,lng,rating,rating_n) values ?`;
@@ -312,5 +523,7 @@ fs.readFile('../Covid_19_Detection_System/points/starting_pois.json', 'utf-8', (
             console.log('Error parsing JSON', err)
        }
     }
-})
+  })
+}
+
 
