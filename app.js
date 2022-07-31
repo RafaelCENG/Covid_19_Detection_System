@@ -201,7 +201,7 @@ app.listen(5000, () => {
 
 //Load JSON DATA to MySQL
 
-fs.readFile('../points/starting_pois.json', 'utf-8', (err, jsonString) => {
+fs.readFile('../Covid_19_Detection_System/points/starting_pois.json', 'utf-8', (err, jsonString) => {
     if (err) {
         console.log(err)
     } else {
