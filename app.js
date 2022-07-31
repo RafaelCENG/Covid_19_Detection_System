@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs')
 const schemas = require('./../Web-Project/controllers/json_schema');
 const Ajv = require("ajv")
+const multer = require('multer');
+
 
 dotenv.config({ path: './.env'})
 
@@ -308,29 +310,111 @@ app.post('/visits', function(req,res){
   })
 })
 
+// Total Visits
+app.post('/total_visits', function(req,res){
+  var sql = 'SELECT COUNT(*) FROM pois_visit; '
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
 
-var innerSchema = schemas.jsonSchema;
+// Total Confirmed Cases
+app.post('/total_cases', function(req,res){
+  var sql = 'SELECT COUNT(*) FROM confirmed_case; '
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
 
-var innerArraySchema = {
-  "type": "array",
-  "items" : innerSchema
+// View all Pois
+app.post('/viewAll', function(req,res){
+  var sql = 'SELECT id,name,address,rating,rating_n from pois_visit'
+    db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+        res.json({
+          msg: 'success',
+          results: rows
+        });
+    }
+  })
+})
+
+//UPLOAD FILE READER
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'points')
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, originalname)
   }
-const ajv = new Ajv()
-const data = {foo: 1, bar: "abc"}
-const valid = ajv.validate(innerArraySchema, data)
-if (!valid) console.log(ajv.errors)
+})
+
+const upload  = multer ({ storage })
+
+
+app.post("/uploadFile",upload.single('fileupload'),(req, res, next) => {
+    // Read File Before Uploading
+    const absolutePath = path.join(__dirname, req.file.path);
+    const jsonString = fs.readFileSync(absolutePath, "utf-8");
+    const jsonObject = JSON.parse(jsonString);
+    nameFile = path.basename(absolutePath)
+
+    //JSON SCHEMA VALIDATOR
+    var innerSchema = schemas.jsonSchema;
+    var innerArraySchema = {
+      "type": "array",
+      "items" : innerSchema
+      }
+    const ajv = new Ajv()
+    const valid = ajv.validate(innerArraySchema, jsonObject)
+    if (!valid) {
+      fs.unlinkSync(req.file.path)
+      res.redirect('admin')
+    }
+    else {
+    console.log(nameFile)
+    rFile(nameFile)
+    res.redirect('admin')
+    }
+})
+
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000")
 })
 
 //Load JSON DATA to MySQL
-
-fs.readFile('../points/starting_pois.json', 'utf-8', (err, jsonString) => {
+rFile("starting_pois.json")
+function rFile(fileName) {
+  fs.readFile(`./points/${fileName}`, 'utf-8', (err, jsonString) => {
     if (err) {
         console.log(err)
     } else {
-       try {           
+       try {    
+            console.log('Testing')       
             const data = JSON.parse(jsonString)
             // Insert Data To Pois Table
             let sql_main = `insert ignore into pois(id,name,address,lat,lng,rating,rating_n) values ?`;
@@ -437,5 +521,7 @@ fs.readFile('../points/starting_pois.json', 'utf-8', (err, jsonString) => {
             console.log('Error parsing JSON', err)
        }
     }
-})
+  })
+}
+
 

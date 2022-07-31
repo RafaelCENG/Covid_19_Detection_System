@@ -108,6 +108,19 @@ router.get('/admin', authController.isLoggedIn, (req,res) => {
     }
 })
 
+// Admin HomePage Route
+router.get('/admin_charts', authController.isLoggedIn, (req,res) => {
+    if ( req.user.admin == 1 ) {
+        var renderUser = {
+            user: JSON.stringify(req.user)
+          }
+        res.render('admin_charts', renderUser)
+
+    } else {
+        res.redirect('/login')
+    }
+})
+
 // // /getUsersData
 // router.get('/getData', function (req, res, next) {
 //     db.query('SELECT name FROM pois', function (err, row) {

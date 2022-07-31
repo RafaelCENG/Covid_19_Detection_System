@@ -329,7 +329,7 @@ function markerOnClick(e)
   console.log(e)
   //alert("hi. you clicked the marker at " + e.latlng.lat +e.latlng.lng);
   results = [e.latlng.lat,e.latlng.lng]
-  console.log(results)
+  console.log("Results",results)
   $.ajax({
     //AJAX type is "Post".
     type: "POST",
