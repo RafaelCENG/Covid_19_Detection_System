@@ -407,9 +407,11 @@ app.listen(5000, () => {
 })
 
 //Load JSON DATA to MySQL
+
 rFile("starting_pois.json")
 function rFile(fileName) {
   fs.readFile(`./points/${fileName}`, 'utf-8', (err, jsonString) => {
+
     if (err) {
         console.log(err)
     } else {
