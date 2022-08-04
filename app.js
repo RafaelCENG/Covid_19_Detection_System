@@ -307,40 +307,7 @@ app.post("/visits", function (req, res) {
   })
 })
 
-// Total Visits
-app.post("/total_visits", function (req, res) {
-  var sql = "SELECT COUNT(*) FROM pois_visit; "
-  db.query(sql, function (err, rows) {
-    if (err) {
-      res.json({
-        msg: "error",
-      })
-    } else {
-      res.json({
-        msg: "success",
-        results: rows,
-      })
-    }
-  })
-})
-
-// Total Confirmed Cases
-app.post("/total_cases", function (req, res) {
-  var sql = "SELECT COUNT(*) FROM confirmed_case; "
-  db.query(sql, function (err, rows) {
-    if (err) {
-      res.json({
-        msg: "error",
-      })
-    } else {
-      res.json({
-        msg: "success",
-        results: rows,
-      })
-    }
-  })
-})
-
+//ADMIN PART 1
 // View all Pois
 app.post("/viewAll", function (req, res) {
   var sql = "SELECT id,name,address,rating,rating_n from pois"
@@ -385,6 +352,75 @@ app.post("/editRow", function (req, res) {
 app.post("/deleteData", function (req, res) {
   var sql = "TRUNCATE TABLE pois"
   db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+// ADMIN PART 2
+
+// A) Total Visits
+app.post("/total_visits", function (req, res) {
+  var sql = "SELECT COUNT(*) FROM pois_visit; "
+  db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+// B) Total Confirmed Cases
+app.post("/total_cases", function (req, res) {
+  var sql = "SELECT COUNT(*) FROM confirmed_case; "
+  db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+app.post("/activeCases", function (req, res) {
+  var sql = "SELECT *  FROM confirmed_case"
+  db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+app.post("/activeCasesVisit", function (req, res) {
+  var sql =
+    "SELECT user_username,Timestamp  FROM pois_visit WHERE user_username = ?"
+  db.query(sql, req.body.username, function (err, rows) {
     if (err) {
       res.json({
         msg: "error",
