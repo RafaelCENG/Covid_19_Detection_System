@@ -111,3 +111,106 @@ function findVisit(user, timestamp, visits) {
     },
   })
 }
+
+findTables()
+function findTables() {
+  let arr = []
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/findTables",
+    contentType: "application/json",
+    datatype: "json",
+    //data: JSON.stringify({ username: user }),
+    success: function (html) {
+      for (i = 0; i < html.results.length; i++) {
+        arr.push(html.results[i].table_name)
+      }
+
+      const toRemove = new Set([
+        "pois_monday",
+        "pois_tuesday",
+        "pois_wednesday",
+        "pois_thursday",
+        "pois_friday",
+        "pois_saturday",
+        "pois_sunday",
+        "pois_visit",
+      ])
+      const tableNames = arr.filter((x) => !toRemove.has(x))
+      const countObj = {}
+      tableNames.forEach((element) => {
+        countObj[element] = 0
+      })
+      $.ajax({
+        //AJAX type is "Post".
+        type: "POST",
+        //Data will be sent to "ajax.php".
+        url: "/visitedPlaces",
+        contentType: "application/json",
+        datatype: "json",
+        //data: JSON.stringify({ username: user }),
+        success: function (html) {
+          for (i = 0; i < html.results.length; i++) {
+            for (j = 0; j < tableNames.length; j++) {
+              $.ajax({
+                //AJAX type is "Post".
+                type: "POST",
+                //Data will be sent to "ajax.php".
+                url: "/counterVisit",
+                contentType: "application/json",
+                datatype: "json",
+                async: false,
+                data: JSON.stringify({
+                  type: tableNames[j],
+                  id: html.results[i],
+                }),
+                success: function (html) {
+                  if (html.results.length > 0) {
+                    place = html.result
+                    countObj[place] = countObj[place] + 1
+                  }
+                },
+              })
+            }
+          }
+          console.log(countObj)
+          const ranks = {}
+          Object.entries(countObj).forEach((entry) => {
+            const [key, value] = entry
+            value > 0 ? (ranks[key] = value) : ""
+          })
+          console.log(ranks)
+          rankingTypes(ranks)
+        },
+      })
+    },
+  })
+}
+
+// D) Function to create Chart for Types ranking
+
+function rankingTypes(ranks) {
+  //const labels = ["January", "February", "March", "April", "May", "June"]
+  const data = {
+    labels: Object.keys(ranks),
+    datasets: [
+      {
+        label: "My First dataset",
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
+        data: Object.values(ranks),
+      },
+    ],
+  }
+  console.log(data)
+  console.log(Object.values(ranks))
+
+  const config = {
+    type: "pie",
+    data: data,
+  }
+
+  const myChart = new Chart(document.getElementById("rankings"), config)
+}

@@ -401,6 +401,7 @@ app.post("/total_cases", function (req, res) {
   })
 })
 
+// C) VISITS FROM ACTIVE CASES
 app.post("/activeCases", function (req, res) {
   var sql = "SELECT *  FROM confirmed_case"
   db.query(sql, function (err, rows) {
@@ -429,6 +430,63 @@ app.post("/activeCasesVisit", function (req, res) {
       res.json({
         msg: "success",
         results: rows,
+      })
+    }
+  })
+})
+
+// D) RANKING POIS
+// Find the names of Types
+app.post("/findTables", function (req, res) {
+  var sql =
+    "SELECT table_name  FROM information_schema.tables  WHERE  table_schema = 'covid-database' AND TABLE_NAME LIKE 'pois_%'"
+  db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+// Id of visited places
+app.post("/visitedPlaces", function (req, res) {
+  var sql = "SELECT id_of_pois  FROM pois_visit"
+  db.query(sql, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+app.post("/counterVisit", function (req, res) {
+  result = req.body.type
+  id = req.body.id.id_of_pois
+  var sql = `SELECT * FROM ${result} WHERE POIs_ID = ?`
+  // var sql =
+  //"SELECT TABLE_NAME, COLUMN_NAME   FROM information_schema.columns WHERE column_name = 'POIs_ID' AND table_name IN (?) LIKE = ?"
+  db.query(sql, id, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+        result,
       })
     }
   })
