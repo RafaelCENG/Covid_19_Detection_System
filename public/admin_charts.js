@@ -112,7 +112,9 @@ function findVisit(user, timestamp, visits) {
   })
 }
 
-findTables()
+//UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
+
+//findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -208,13 +210,15 @@ function rankingTypes(ranks) {
     type: "pie",
     data: data,
   }
-
+  const c = Chart.getChart(rankings)
+  if (c) c.destroy()
   const rankChart = new Chart(document.getElementById("rankings"), config)
 }
 
 // E) Ranking POIS from Active Cases Visits
 
-activeCases2()
+//UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
+//activeCases2()
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".
@@ -351,6 +355,8 @@ function rankingTypes2(ranks) {
     data: data,
   }
 
+  const c = Chart.getChart(rankingsActive)
+  if (c) c.destroy()
   const rankChart2 = new Chart(
     document.getElementById("rankingsActive"),
     config
@@ -363,4 +369,25 @@ function createRanking(countObj, ranks) {
     const [key, value] = entry
     value > 0 ? (ranks[key] = value) : ""
   })
+}
+
+// PART F
+function weekValue() {
+  var weekNum = document.getElementById("myWeek").value
+  console.log(weekNum.split("-W"))
+  weekNum = weekNum.split("-W")
+  let year = weekNum[0]
+  let week = weekNum[1]
+  console.log(week)
+  let firstDay = getDateOfISOWeek(week, year)
+  console.log(firstDay)
+}
+
+function getDateOfISOWeek(w, y) {
+  var simple = new Date(Date.UTC(y, 0, 1 + (w - 1) * 7))
+  var dow = simple.getDay()
+  var ISOweekStart = simple
+  if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1)
+  else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay())
+  return ISOweekStart
 }
