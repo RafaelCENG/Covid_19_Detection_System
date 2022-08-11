@@ -121,6 +121,17 @@ router.get('/admin_charts', authController.isLoggedIn, (req,res) => {
     }
 })
 
+router.get('/changepass', authController.isLoggedIn,  (req,res) => {
+    if ( req.user ) {
+        res.render('changepass', {
+            local_user: JSON.stringify(req.user),
+            user: req.user
+        })
+    } else {
+        res.redirect('/login')
+    }
+})
+
 // // /getUsersData
 // router.get('/getData', function (req, res, next) {
 //     db.query('SELECT name FROM pois', function (err, row) {
