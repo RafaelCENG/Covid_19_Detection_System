@@ -492,6 +492,46 @@ app.post("/counterVisit", function (req, res) {
   })
 })
 
+// E) RANKING POIS FROM ACTIVE CASES
+
+app.post("/activeCasesVisit2", function (req, res) {
+  var sql =
+    "SELECT user_username,Timestamp,id_of_pois  FROM pois_visit WHERE user_username = ?"
+  db.query(sql, req.body.username, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
+app.post("/counterVisit2", function (req, res) {
+  result = req.body.type
+  id = req.body.id
+  var sql = `SELECT * FROM ${result} WHERE POIs_ID = ?`
+  // var sql =
+  //"SELECT TABLE_NAME, COLUMN_NAME   FROM information_schema.columns WHERE column_name = 'POIs_ID' AND table_name IN (?) LIKE = ?"
+  db.query(sql, id, function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+        result,
+      })
+    }
+  })
+})
+
 //UPLOAD FILE READER
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
