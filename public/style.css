@@ -13,17 +13,12 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background: url(Untitl.png)no-repeat;
+  background: url(design.jpg)no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 nav {
-    /*background-color: #563d7c;
-    color: #000;
-    padding: 30px 60px;
-    display: flex;
-    justify-content: space-between;*/
     position: relative;
     top: 0;
     width: 100%;
@@ -55,10 +50,6 @@ nav li {
 }
 
 nav li a {
-    /*color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 8px;*/
     color: #000;
     text-decoration: none;
     font-weight: 500;
@@ -67,6 +58,7 @@ nav li a {
     border-radius: 20px;
     transition: 0.3s;
     transition-property: background;
+    width: 100px;
 }
 
 nav li a:hover {
@@ -116,18 +108,10 @@ nav li a:hover {
 .container .btn:hover{
   background: #0C4F60;
 }
-.avatar-ctn {
-    background-color: orange;
-    text-align: center;
-}
 
-.avatar {
-    width: 65%;
-    border-bottom: 1px solid rgba(0,0,0,0.125);
-}
+/*Forms*/
 
-
- .card{
+.card{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -149,27 +133,57 @@ nav li a:hover {
 }
 
 
+/*Profile Picture*/
 
+.avatar-ctn {
+  background-color: #fff;
+  text-align: center;
+}
 
+.avatar{
+  width: 30%;
+  border-bottom: 1px solid rgba(0,0,0,0.125); 
+}
 
+.card .card-body1{
+  padding: 0 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-
-
-
-
-
+.space{
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+}
 
 /* Search Bar */
-
 .wrapper {
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.15);
     position: relative;
     width: 450px;
   }
+  .container1 .btn{
+    color: #fff;
+    background: #226a80;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+    transition-property: background;
+  }
   
+  .container1 .btn:hover{
+    background: #0C4F60;
+  }
+
   input {
     width:100%;
     border: none;

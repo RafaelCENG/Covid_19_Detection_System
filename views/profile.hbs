@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav>
-        <h4>Node MySQL</h4>
+        <h4>LOGO</h4>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/profile">Profile</a></li>
@@ -23,12 +23,12 @@
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col-4">
+           <div class="col-4">
                 <div class="card">
                     <div class="avatar-ctn">
-                        <img src="/avatar.png" class="avatar" alt="user profile picture"/>
+                        <img src="/icon.jpg" class="avatar" alt="user profile picture"/>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body1">
                         <h5 class = "card-title">{{ user.username }}     
                             <button id="change_username"  class="fa-solid fa-pen-to-square btn" type="submit" value="Submit"></button>
                             {{!-- Confirmation box --}}
@@ -42,64 +42,33 @@
                             </div>
                          </div>
                         </h5>
-                        <p class="card-text">Example test test test dont know whats going on help me hello!!!</p>
+                        <p class="card-text">Do you wanna make changes?</p>
                         <a href="#" class = "btn btn-primary">{{user.email}}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="card text-center">
-                    <div class="card-header">
-                        Profile Page
-                    </div>
-                    <div class="card-body">
+                
+                    <div class="card-body1">
                         <h5 class="card-title">{{user.username}} welcome back</h5>
-                        <p class="card-text">Example test test test dont know whats going on help me hello!!!</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text">Where do you want to go?</p>
+                        <a href="http://localhost:5000/map" class="btn btn-primary">Go Back</a>
+                        <nav class="space">
+                        {{!-- Button to redirect us to visit history --}}
+                        <a class="btn btn-primary" href="/visit_history" role="button">Visit History</a>
+                        {{!-- Button to redirect us to case history --}}
+                        <a class="btn btn-primary" href="/case_history" role="button">Case History</a>
+                        {{!-- Button to redirect us to change password --}}
+                        <a class="btn btn-primary" href="/changepass" role="button">Change Password</a>
+                        </nav>
                     </div>
-                    <div class="card-footer text-muted">
-                        Node MySQL - Project
+                     
                     </div>
+                    
                 </div>
-                <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Current Password</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="password" id="currPass" class="form-control" aria-describedby="passwordHelpInline">
-                    </div>
-                    <div class="col-auto">
-                        <span id="passwordHelpInline" class="form-text">
-                        Must be 8-20 characters long.
-                        </span>
-                    </div>
-                </div>
-                <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">New Password</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="password" id="newPass" class="form-control" aria-describedby="passwordHelpInline">
-                    </div>
-                    <div class="col-auto">
-                        <span id="passwordHelpInline" class="form-text">
-                        Must be 8-20 characters long.
-                        </span>
-                    </div>
-                </div>
-                {{!-- Change Password Button --}}
-                <button id="changePass"class="btn btn-primary" type="submit" value="Submit" onclick="changePassword()">Change Password</button>
+                
             </div>
+
+                        
+                       
         </div>
-
-        {{!-- Button to redirect us to visit history --}}
-        <a class="btn btn-primary" href="/visit_history" role="button">Visit History</a>
-
-        {{!-- Button to redirect us to case history --}}
-        <a class="btn btn-primary" href="/case_history" role="button">Case History</a>
-
     </div>
-
     <script>var current_user = {{{local_user}}} </script>
     <script src="/profile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
