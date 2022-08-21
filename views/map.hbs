@@ -25,6 +25,8 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         
        
  
@@ -32,7 +34,15 @@
 <body>
      <nav>
         <h4>LOGO</h4>
-        <ul>
+        <!--<img src="n.jpg">-->
+        <input type="checkbox" id="toggle-menu">
+        <label class="menu-icon" for="toggle-menu">
+    <a>
+        <i class="fa fa-bars" id="menu-icon"></i>
+        <i class="fa fa-times" id="cancel"></i>
+    </a>
+</label>
+<ul>
             <li><a href="/">Home</a></li>
             <li><a href="/profile">Profile</a></li>
             <li><a href="/auth/logout">Logout</a></li>
@@ -45,11 +55,10 @@
     <div class="wrapper">
         <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search" aria-label="Search" autocomplete="chrome-off">
-        <button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>
+        <button id='search_button' class="fa fa-search" onclick="test()" type="button" ></button>
+        <!--<button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>-->
         <div class="results">
-          <ul>
-          </ul>
-        </div>
+    </div>
     </form>
     </div>
  <div class="space">
