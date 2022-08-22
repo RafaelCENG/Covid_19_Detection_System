@@ -8,12 +8,20 @@
     <link rel="stylesheet" href="/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 <body>
       <nav>
-        <h4>Covid System</h4>
+        <h4>LOGO</h4>
+        <!--<img src="pin.png">-->
+        <input type="checkbox" id="toggle-menu">
+        <label class="menu-icon" for="toggle-menu">
+    <a>
+        <i class="fa fa-bars" id="menu-icon"></i>
+        <i class="fa fa-times" id="cancel"></i>
+    </a>
+</label>
         <ul>
             
             {{#if user }}
@@ -25,18 +33,24 @@
             {{/if}}
         </ul>
     </nav>
-{{!-- TOTAL VISITS --}}
-<h5>Total Visits: <div id="total_visits"> </div></h5>
 
-{{!-- TOTAL CONFIRMED CASES --}}
-<h5>Total Confirmed Cases: <div id="total_cases"> </div></h5>
+{{!-- TOTAL VISITS,TOTAL CONFIRMED CASES,TOTAL VISITS BY ACTIVE CASES --}}
+<table class="onetable">
+  <tr>
+    <th>Total Visits:</th>
+    <th>Total Confirmed Cases:</th>
+    <th>Total Visits By Active Cases:</th>
+  </tr>
+  <tr>
+    <td><div id="total_visits"> </div></td>
+    <td><div id="total_cases"> </div></td>
+    <td><div id="active_cases"> </div></td>
+  </tr>
+</table>
 
-{{!-- TOTAL VISITS BY ACTIVE CASES --}}
-<h5>Total Visits By Active Cases: <div id="active_cases"> </div></h5>
-
-<label for="week">What week would you like to start?</label>
-<input id="myWeek" type="week" name="week" >
-<button onclick="weekValue()">Try it</button>
+<label class="weekday" for="week">What week would you like to start?</label>
+<input class="choice" id="myWeek" type="week" name="week" >
+<button class="btn btn-primary" role="button" onclick="weekValue()">Try it</button>
 
 <div>
   <canvas id="rankings" ></canvas>

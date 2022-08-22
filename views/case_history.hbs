@@ -15,10 +15,27 @@
 
 </head>
 <body>
+        <nav>
+        <h4>LOGO</h4>
+        <!--<img src="n.jpg">-->
+        <input type="checkbox" id="toggle-menu">
+        <label class="menu-icon" for="toggle-menu">
+    <a>
+        <i class="fa fa-bars" id="menu-icon"></i>
+        <i class="fa fa-times" id="cancel"></i>
+    </a>
+        </label>
+    <ul>
+        <li><a href="/Map">Map</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+    </ul>
+    </nav>
     <!-- Tab links -->
     <div class="tab">
-    <button class="tablinks" = onclick="openTab(event, 'Visit')">Visit History</button>
-    <button class="tablinks"  onclick="openTab(event, 'Case')">Case_History</button>
+    <button class="tablinks"  onclick="openTab(event, 'Case')">Show Case History</button>
+    <!--<button class="tablinks" = onclick="openTab(event, 'Visit')">Visit History</button>
+    <button class="tablinks"  onclick="openTab(event, 'Case')">Case History</button>-->
     </div>
 
     <!-- Tab content -->

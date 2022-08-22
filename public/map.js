@@ -268,7 +268,7 @@ function populateMap(dataSet,populate,i) {
     //   return btn;
     //  }
     // }
-     if(map.distance(userPosition, guardedLocation) >= thresholdDistance) {
+     if(map.distance(userPosition, guardedLocation) <= thresholdDistance) {
        L.marker([populate[i].lat, populate[i].lng], {icon: Icon,}).on('click', markerOnClick).addTo(layerGroup)
        .bindPopup(Popup,visit); 
        }
