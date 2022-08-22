@@ -114,7 +114,7 @@ function findVisit(user, timestamp, visits) {
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
 
-//findTables()
+findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -197,8 +197,22 @@ function rankingTypes(ranks) {
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: [
+         'rgba(0, 99, 132)',
+         'rgba(54, 162, 235)',
+         'rgba(255, 206, 86)',
+         'rgba(75, 192, 192)',
+         'rgba(153, 102, 255)',
+         'rgba(255, 159, 64)'
+        ],
+        borderColor:[
+          'rgba(255, 99, 132)',
+          'rgba(54, 162, 235)',
+          'rgba(255, 206, 86)',
+          'rgba(75, 192, 192)',
+          'rgba(153, 102, 255)',
+          'rgba(255, 159, 64)'
+        ],
         data: Object.values(ranks),
       },
     ],

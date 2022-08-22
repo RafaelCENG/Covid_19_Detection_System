@@ -10,12 +10,11 @@
     width: 100%;
 }
 
-
 .custom-popup .leaflet-popup-content-wrapper {
     background:#2c3e50;
     color:#fff;
     font-size:16px;
-    line-height:24px;
+    line-height:50px;
 }
 .custom-popup .leaflet-popup-content-wrapper a {
     color:rgba(255,255,255,0.5);
@@ -40,16 +39,21 @@
     z-index: 2;
 }
     
-.confirm-box {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    top: 25%;
-    left: 25%;
-    text-align: center;
-    background: white;
+.overlay .confirm-box {
+  cursor: pointer;
+  background-color: #226a80;
+  color: #fff;
+  width: 700px;
+  text-align: center;
+  font-size:20px;
+  padding: 30px 0;
+  margin: 0 auto;
+  transition:background-image 3s ease-in-out;
 }
-    
+.confirm-box:hover{
+    transition:background-image 3s ease-in-out;
+  background-color: #2c3e50;
+}
 .close {
     cursor: pointer;
 }
