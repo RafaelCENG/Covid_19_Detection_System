@@ -79,24 +79,20 @@ app.post("/getPoisNames", function (req, res) {
 
 // GET id,lat and lng of every search result to populate the map with markers after searching
 app.post("/getMarkers", function (req, res) {
-  let result = req.body
-  db.query(
-    "SELECT id,name,lat,lng FROM pois WHERE name IN ('" +
-      result.results.join("','") +
-      "')",
-    function (err, rows) {
-      if (err) {
-        res.json({
-          msg: "error",
-        })
-      } else {
-        res.json({
-          msg: "success",
-          results: rows,
-        })
-      }
+  let result = req.body.results
+  var sql = "SELECT id,name,lat,lng FROM pois WHERE name IN (?)"
+  db.query(sql, [result], function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
     }
-  )
+  })
 })
 
 // GET the estimation of a place for the next 2 hours

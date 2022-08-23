@@ -31,16 +31,9 @@
         <li><a href="/auth/logout">Logout</a></li>
     </ul>
     </nav>
-    <!-- Tab links -->
-    <div class="tab">
-    <button class="tablinks" = onclick="openTab(event, 'Visit')">Show History</button>
-    <!--<button class="tablinks" = onclick="openTab(event, 'Visit')">Visit History</button>
-    <button class="tablinks"  onclick="openTab(event, 'Case')">Case History</button>-->
-    </div>
 
-    {{!-- Tab Contents --}}
-    <!-- Tab content -->
-    <div id="Visit" class="tabcontent">
+
+    <div id="Visit" >
         <table class="table">
             <thead>
                 <tr>
@@ -57,11 +50,6 @@
         {{/each}}
         </table>
     </div>
-
-    <div id="Case" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
-</div>
 
     <script src="/user_history.js"></script>
 

@@ -21,7 +21,7 @@ lc.start()
 //let estimations = []
 
 //creating the search bar and add to map
-L.Control.geocoder().addTo(map)
+//L.Control.geocoder().addTo(map)
 
 //markers
 // L.geoJSON(specific).addTo(map);
@@ -102,32 +102,6 @@ $(document).ready(function () {
 
 let search = document.querySelector("#search")
 let populate
-function test() {
-  console.log("My results")
-  console.log(new_results)
-  search.value = ""
-  resultsWrapper.innerHTML = ""
-  let results = new_results.map((a) => a.name)
-  console.log("Results")
-  console.log(results)
-  $(document).ready(function () {
-    $.ajax({
-      //AJAX type is "Post".
-      type: "POST",
-      //Data will be sent to "ajax.php".
-      url: "/getMarkers",
-      contentType: "application/json",
-      datatype: "json",
-      //Data, that will be sent to "ajax.php".
-      data: JSON.stringify({ results: results }),
-      //If result found, this function will be called.
-      success: function (html) {
-        populate = html.results
-        moreInfo(populate)
-      },
-    })
-  })
-}
 
 //   FUNCTIONS
 
@@ -164,31 +138,58 @@ function renderResults(results) {
   return new_results
 }
 
-function moreInfo(populate) {
+// Function to Find the POIS after pressing the Search Button
+async function mapSearching() {
+  console.log("My results")
+  console.log(new_results)
+  search.value = ""
+  resultsWrapper.innerHTML = ""
+  let results = new_results.map((a) => a.name)
+  console.log("Results")
+  console.log(results)
+  const res = await markers(results)
+  console.log("RESSSSSS", res)
+  moreInfo(res)
+}
+async function markers(results) {
+  const result = await $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/getMarkers",
+    contentType: "application/json",
+    datatype: "json",
+    //Data, that will be sent to "ajax.php".
+    data: JSON.stringify({ results: results }),
+    //If result found, this function will be called.
+    success: function (html) {
+      populate = html.results
+      console.log("MY POPULATION", populate)
+    },
+  })
+  return result
+}
+async function moreInfo(res) {
+  console.log(res)
   //clear layerGroup
   layerGroup.clearLayers()
   currentTime = getDateTime()
   //estimations = []
-  console.log("Pop", populate.length)
-  for (i = 0; i < populate.length; i++) {
+  console.log("Pop", res.results.length)
+  for (i = 0; i < res.results.length; i++) {
     let dataSet = [
-      populate[i].id,
+      res.results[i].id,
       currentTime[7].toLowerCase(),
       currentTime[4] + 1,
       currentTime[4] + 2,
     ]
     console.log(dataSet)
-    populateMap(dataSet, populate, i)
+    populateMap(dataSet, res.results, i)
   }
 }
 
-// TESTING
-
-// TESTING END
-
 // Function to populate the map with pop-ups while searching inside the circle
-
-function populateMap(dataSet, populate, i) {
+async function populateMap(dataSet, populate, i) {
   $.ajax({
     //AJAX type is "Post".
     type: "POST",

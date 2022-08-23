@@ -114,7 +114,7 @@ function findVisit(user, timestamp, visits) {
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
 
-findTables()
+//findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -232,7 +232,7 @@ function rankingTypes(ranks) {
 // E) Ranking POIS from Active Cases Visits
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
-activeCases2()
+//activeCases2()
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".

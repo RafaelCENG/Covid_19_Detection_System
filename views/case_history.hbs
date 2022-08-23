@@ -31,19 +31,8 @@
         <li><a href="/auth/logout">Logout</a></li>
     </ul>
     </nav>
-    <!-- Tab links -->
-    <div class="tab">
-    <button class="tablinks"  onclick="openTab(event, 'Case')">Show Case History</button>
-    <!--<button class="tablinks" = onclick="openTab(event, 'Visit')">Visit History</button>
-    <button class="tablinks"  onclick="openTab(event, 'Case')">Case History</button>-->
-    </div>
 
-    <!-- Tab content -->
-    <div id="Visit" class="tabcontent">
-       
-    </div>
-
-    <div id="Case" class="tabcontent">
+    <div id="Case">
      <table class="table">
             <thead>
                 <tr>
@@ -57,7 +46,7 @@
         </tr>
         {{/each}}
         </table>
-</div>
+    </div>
 
     <script src="/user_history.js"></script>
 
