@@ -532,6 +532,23 @@ app.post("/counterVisit2", function (req, res) {
   })
 })
 
+// F) WEEK VISITS
+app.post("/weekVisit", function (req, res) {
+  var sql = "SELECT COUNT(*) FROM pois_visit WHERE Timestamp BETWEEN ? AND ? "
+  db.query(sql, [req.body.dayOne, req.body.dayOne2], function (err, rows) {
+    if (err) {
+      res.json({
+        msg: "error",
+      })
+    } else {
+      res.json({
+        msg: "success",
+        results: rows,
+      })
+    }
+  })
+})
+
 //UPLOAD FILE READER
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

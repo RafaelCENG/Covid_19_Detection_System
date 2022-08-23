@@ -198,20 +198,20 @@ function rankingTypes(ranks) {
       {
         label: "My First dataset",
         backgroundColor: [
-         'rgba(0, 99, 132)',
-         'rgba(54, 162, 235)',
-         'rgba(255, 206, 86)',
-         'rgba(75, 192, 192)',
-         'rgba(153, 102, 255)',
-         'rgba(255, 159, 64)'
+          "rgba(0, 99, 132)",
+          "rgba(54, 162, 235)",
+          "rgba(255, 206, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(153, 102, 255)",
+          "rgba(255, 159, 64)",
         ],
-        borderColor:[
-          'rgba(255, 99, 132)',
-          'rgba(54, 162, 235)',
-          'rgba(255, 206, 86)',
-          'rgba(75, 192, 192)',
-          'rgba(153, 102, 255)',
-          'rgba(255, 159, 64)'
+        borderColor: [
+          "rgba(255, 99, 132)",
+          "rgba(54, 162, 235)",
+          "rgba(255, 206, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(153, 102, 255)",
+          "rgba(255, 159, 64)",
         ],
         data: Object.values(ranks),
       },
@@ -232,7 +232,7 @@ function rankingTypes(ranks) {
 // E) Ranking POIS from Active Cases Visits
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
-//activeCases2()
+activeCases2()
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".
@@ -394,7 +394,22 @@ function weekValue() {
   let week = weekNum[1]
   console.log(week)
   let firstDay = getDateOfISOWeek(week, year)
-  console.log(firstDay)
+  let visitsPerDay = []
+  for (i = 0; i < 7; i++) {
+    if (i == 0) {
+      firstDay = firstDay.setDate(firstDay.getDate())
+    } else {
+      firstDay = firstDay.setDate(firstDay.getDate() + 1)
+    }
+    firstDay = new Date(firstDay)
+    dayOne = firstDay.toISOString().slice(0, 19).replace("T", " ")
+    days = allDay(firstDay)
+    dayOne = days[0]
+    dayOne2 = days[1]
+    weekVisits(dayOne, dayOne2, visitsPerDay)
+  }
+  console.log(visitsPerDay)
+  createWeekChart(visitsPerDay)
 }
 
 function getDateOfISOWeek(w, y) {
@@ -404,4 +419,112 @@ function getDateOfISOWeek(w, y) {
   if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1)
   else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay())
   return ISOweekStart
+}
+
+// Function to find the visits of each day from the given Week
+function weekVisits(dayOne, dayOne2, visitsPerDay) {
+  $.ajax({
+    //AJAX type is "Post".
+    type: "POST",
+    //Data will be sent to "ajax.php".
+    url: "/weekVisit",
+    contentType: "application/json",
+    datatype: "json",
+    async: false,
+    data: JSON.stringify({ dayOne: dayOne, dayOne2: dayOne2 }),
+    success: function (html) {
+      visitsPerDay.push(Object.values(html.results[0])[0])
+      console.log(visitsPerDay)
+    },
+  })
+}
+
+//Function to get  the day from 00:00:00 to 23:59:59
+function allDay(firstDay) {
+  let lastDay = firstDay
+  lastDay.getHours() // 0 - 23
+  lastDay.setHours(23)
+  lastDay.getMinutes() // 0 - 59
+  lastDay.setMinutes(59)
+  lastDay.getSeconds() // 0 - 59
+  lastDay.setSeconds(59)
+  lastDay = new Date(
+    lastDay.getTime() - lastDay.getTimezoneOffset() * 60000
+  ).toISOString()
+  lastDay = lastDay.slice(0, 19).replace("T", " ")
+
+  firstDay.getHours() // 0 - 23
+  firstDay.setHours(0)
+  firstDay.getMinutes() // 0 - 59
+  firstDay.setMinutes(0)
+  firstDay.getSeconds() // 0 - 59
+  firstDay.setSeconds(0)
+  firstDay = new Date(
+    firstDay.getTime() - firstDay.getTimezoneOffset() * 60000
+  ).toISOString()
+  firstDay = firstDay.slice(0, 19).replace("T", " ")
+  return [firstDay, lastDay]
+}
+
+function createWeekChart(visits) {
+  console.log(visits.toString())
+  console.log("PerDay", visits)
+  console.log("PerDay", visits[0])
+  console.log("PerDay", visits.length)
+  console.log(JSON.parse(JSON.stringify(visits)))
+
+  const visits2 = Object.values(visits)
+  console.log(visits2)
+  const labels = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ]
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Visits",
+        data: visits,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
+  const config = {
+    type: "bar",
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  }
+
+  const c = Chart.getChart("weekVisits")
+  if (c) c.destroy()
+  const rankChart3 = new Chart(document.getElementById("weekVisits"), config)
 }
