@@ -600,13 +600,11 @@ function userB_sevenDaysCase(common_pois_confirmed_arr, arr, flag, usersFlag) {
     FinalArr.forEach(function (e) {
       var li = document.createElement("li")
       visitTimestamp = new Date(e[3])
-      visitTimestamp =
-        visitTimestamp.toISOString().split("T")[0] +
-        " " +
-        visitTimestamp.toTimeString().split(" ")[0]
-      console.log(visitTimestamp)
+      visitTimestamp = visitTimestamp
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ")
       li.innerText = e[4] + " " + visitTimestamp
-      console.log(li)
       ul.append(li)
     })
   }

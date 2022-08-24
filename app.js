@@ -27,7 +27,6 @@ const db = mysql.createConnection({
 const publicDirectory = path.join(__dirname, "./public")
 app.use(express.static(publicDirectory))
 
-console.log(__dirname)
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: false }))
 
@@ -54,20 +53,14 @@ app.use("/auth", require("./routes/auth"))
 
 // POST TO GET THE NAME OF POIS WHEN SEARCHING
 app.post("/getPoisNames", function (req, res) {
-  //console.log(req.body.search)
-  //console.log(req.body.search)
-  // WHERE name  LIKE 'req.body.search'
   db.query(
     "SELECT name FROM pois WHERE name LIKE '%" + req.body.search + "%' LIMIT 5",
     function (err, rows) {
       if (err) {
-        // console.log('err loading data');
         res.json({
           msg: "error",
         })
       } else {
-        //  console.log('table loading success');
-        //console.log(rows);
         res.json({
           msg: "success",
           names: rows,
@@ -101,8 +94,6 @@ app.post("/getEstimation", function (req, res) {
   let myDay = "pois_" + req.body.dataSet[1]
   let myNum1 = req.body.dataSet[2]
   let myNum2 = req.body.dataSet[3]
-  console.log("My Data")
-  console.log(myId, myDay, myNum1, myNum2)
   var sql = "SELECT POIs_ID, num?, num? FROM ?? WHERE POIs_ID = ?"
   db.query(sql, [myNum1, myNum2, myDay, myId], function (err, rows) {
     if (err) {
@@ -120,10 +111,8 @@ app.post("/getEstimation", function (req, res) {
 
 // GET THE NAME AND ID WHEN A MARKER IS CLICKED
 app.post("/getNameIDPoiS", function (req, res) {
-  console.log(req.body)
   let clicked_lat = parseFloat(req.body.results[0])
   let clicked_lng = req.body.results[1]
-  console.log(clicked_lat, clicked_lng)
   var sql = "SELECT name,id FROM pois WHERE lat = ? and lng = ? "
   db.query(sql, [clicked_lat, clicked_lng], function (err, rows) {
     if (err) {
@@ -227,7 +216,6 @@ app.post("/commonPois", function (req, res) {
 
 // Update user username with the new one.
 app.post("/new_username", function (req, res) {
-  console.log(req.body)
   var sql = "UPDATE users SET username = ? WHERE id = ?;"
   db.query(
     sql,
@@ -286,7 +274,6 @@ app.post("/changePass", function (req, res) {
 
 // User History Visit Route
 app.post("/visits", function (req, res) {
-  console.log(req)
   var sql = "SELECT name_of_pois,Timestamp from pois_visit where user_id = ?"
 
   db.query(sql, id, function (err, rows) {
@@ -323,8 +310,6 @@ app.post("/viewAll", function (req, res) {
 
 // Edit Cell
 app.post("/editRow", function (req, res) {
-  console.log(req.body)
-  console.log(req.body.id)
   var sql = "UPDATE pois SET rating = ? , rating_n = ?  WHERE id = ?"
   db.query(
     sql,
@@ -471,8 +456,6 @@ app.post("/counterVisit", function (req, res) {
   result = req.body.type
   id = req.body.id.id_of_pois
   var sql = `SELECT * FROM ${result} WHERE POIs_ID = ?`
-  // var sql =
-  //"SELECT TABLE_NAME, COLUMN_NAME   FROM information_schema.columns WHERE column_name = 'POIs_ID' AND table_name IN (?) LIKE = ?"
   db.query(sql, id, function (err, rows) {
     if (err) {
       res.json({
@@ -511,8 +494,6 @@ app.post("/counterVisit2", function (req, res) {
   result = req.body.type
   id = req.body.id
   var sql = `SELECT * FROM ${result} WHERE POIs_ID = ?`
-  // var sql =
-  //"SELECT TABLE_NAME, COLUMN_NAME   FROM information_schema.columns WHERE column_name = 'POIs_ID' AND table_name IN (?) LIKE = ?"
   db.query(sql, id, function (err, rows) {
     if (err) {
       res.json({
@@ -577,7 +558,6 @@ app.post("/uploadFile", upload.single("fileupload"), (req, res, next) => {
     fs.unlinkSync(req.file.path)
     res.redirect("admin")
   } else {
-    console.log(nameFile)
     rFile(nameFile)
     res.redirect("admin")
   }
@@ -596,7 +576,6 @@ function rFile(fileName) {
       console.log(err)
     } else {
       try {
-        console.log("Testing")
         const data = JSON.parse(jsonString)
         // Insert Data To Pois Table
         let sql_main = `insert ignore into pois(id,name,address,lat,lng,rating,rating_n) values ?`
@@ -615,7 +594,6 @@ function rFile(fileName) {
         // Database Query to insert the data
         db.query(sql_main, [values], (err, result) => {
           if (err) throw err
-          //  console.log("rows affected " + result.affectedRows);
         })
 
         // Creating array with each id corresponding to the equivalent type
@@ -661,7 +639,6 @@ function rFile(fileName) {
           //Database Query to insert the data
           db.query(sql_types, [types_load], (err, result) => {
             if (err) throw err
-            // console.log("rows affected " + result.affectedRows);
           })
         }
 
@@ -722,7 +699,6 @@ function rFile(fileName) {
           //Database Query to insert the data
           db.query(sql_days, [days_load], (err, result) => {
             if (err) throw err
-            //console.log("rows affected " + result.affectedRows);
           })
         }
       } catch (error) {
