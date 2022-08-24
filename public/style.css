@@ -12,15 +12,9 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
   background: url(Untitl.png)no-repeat;
-=======
   background: url(design.jpg)no-repeat;
->>>>>>> Stashed changes
-=======
   background: url(pic1.png)no-repeat;
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
   background-size: cover;
   /*background-position: center;*/
   background-repeat: no-repeat;
@@ -34,8 +28,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
     /*background-color: #226A80;*/
 }
 
@@ -47,16 +39,13 @@ h4{
   text-transform: uppercase;
   font-weight: 900;
   letter-spacing: 1px;
-=======
-    background: #2CB8CD;
+  background: #2CB8CD;
     
 }
 nav img{
   font-size: 30px;
   top: 12px;
   left: 5%;
->>>>>>> Stashed changes
-=======
     
 }
 nav img{
@@ -65,7 +54,6 @@ nav img{
   position: absolute;
   top: 12px;
   left: 5%;
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 }
 
 nav ul {
@@ -97,12 +85,6 @@ nav li a:hover {
     background: #B1D4E0;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
-
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 #toggle-menu {
   display: none;
 }
@@ -123,9 +105,6 @@ nav li a:hover {
   
 }
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
 @media(max-width: 1118px){
   nav img{
     left: 8%;
@@ -179,7 +158,6 @@ nav li a:hover {
 }
 
 
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 .container{
   max-width: 650px;
   margin: 80px 200px;
@@ -278,15 +256,9 @@ nav li a:hover {
 
 /* Search Bar */
 .wrapper {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
     margin: 0 auto;
-=======
->>>>>>> Stashed changes
-=======
     /*margin: 0 auto;
     box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.15);*/
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
     background: #ffffff;
     border-radius: 5px;
     position: relative;
@@ -350,12 +322,6 @@ nav li a:hover {
   .results ul li:hover {
     background: #ececec
   }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
-
 
 /* Style the tab */
 .tab {
@@ -409,7 +375,6 @@ nav li a:hover {
 /*Admin*/
 
 .btn {
-<<<<<<< HEAD
   color: #fff;
   background: #226a80;
   text-decoration: none;
@@ -440,9 +405,6 @@ nav li a:hover {
 
 }
 .form-control1:hover{
-  background: #0C4F60;
-  }
-=======
 color: #fff;
 background: #226a80;
 text-decoration: none;
@@ -458,7 +420,6 @@ transition-property: background;
 .btn:hover{
 background: #0C4F60;
 }
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 
 /*Admin Chart*/
 
@@ -490,7 +451,6 @@ background: #0C4F60;
   color: #000;
   text-transform: uppercase;
 }
-<<<<<<< HEAD
 
 .chart-container{
   width:100%;
@@ -556,12 +516,10 @@ background: #0C4F60;
     display: block;
 }
 }
->>>>>>> Stashed changes
-=======
+
 .chart-container {
   position: relative;
   margin: auto;
   height: 25vh;
   width: 25vw;
 }
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
