@@ -30,7 +30,7 @@
 //     config
 //   );
 
-activeCases()
+//activeCases()
 
 $.when(
   $.ajax({
@@ -110,6 +110,7 @@ function findVisit(user, timestamp, visits) {
       document.getElementById("active_cases").innerHTML = visits.length
     },
   })
+  findTables()
 }
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
@@ -242,7 +243,7 @@ function rankingTypes(ranks) {
 // E) Ranking POIS from Active Cases Visits
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
-activeCases2()
+//activeCases2()
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".
@@ -262,6 +263,7 @@ function activeCases2() {
       }
     },
   })
+  
 }
 
 function findVisit2(user, timestamp, visits) {
