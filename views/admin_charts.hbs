@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
   <nav>
     <!--<img src="pin.png">-->
     <input type="checkbox" id="toggle-menu">
@@ -26,16 +25,6 @@
       </a>
     </label>
     <ul>
-            
-            {{#if user }}
-                <li><a href="/admin">Home</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
-            {{else}}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-            {{/if}}
-        </ul>
-    </nav>
 
       {{#if user }}
       <li><a href="/admin">Home</a></li>
@@ -69,29 +58,19 @@
 
   <label class="weekday" for="week">What week would you like to start?</label>
   <input class="choice" id="myWeek" type="week" name="week">
-  <button id="btnup" class="btn2 btn-primary" role="button" onclick="weekValue()">Try it</button>
+  <button id="btnup" class="btn2 btn btn-danger" role="button" onclick="weekValue()">Try it</button>
+
+  <!--koumpi gia charsets-->
+  <button class="btn2 btn btn-primary" onclick="findTables()">Chart1</button>
+  <button class="btn2 btn btn-primary" onclick="activeCases2()">Chart2</button>
 
   <div class="chart-container">
     <canvas id="rankings"></canvas>
   </div>
 
 
-  <div class="chart-container">
-    <canvas id="rankingsActive"></canvas>
-  </div>
-
-  <div>
-    <canvas id="weekVisits"></canvas>
-  </div>
-
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/admin_charts.js"></script>
-
-
-<!--koumpi gia charsets-->
-<button class="chr1" onclick="activeCases()">Chart1</button>
-<button class="chr2" onclick="activeCases2()">Chart2</button>
 
 </body>
 

@@ -108,7 +108,6 @@ nav li a:hover {
     left: 8%;
   }
 }
-}
 
 .container {
 @media(max-width: 860px){
@@ -145,11 +144,6 @@ nav li a:hover {
     display: block;
 }
 }
-
-.container{
-  max-width: 650px;
-  margin: 80px 200px;
-  padding: 0 1px;
 }
 
 .container .jumbotron .display {
@@ -366,10 +360,9 @@ input:focus {
 
 /*Admin*/
 
-#deleteData {
-.btn {
+
+.btn2 {
   color: #fff;
-  background: red;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
@@ -403,7 +396,6 @@ input:focus {
 #btnup:hover {
   background: #0C4F60;
 }
-
 .form-control1 {
   color: #fff;
   background: #226a80;

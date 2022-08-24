@@ -30,7 +30,7 @@
 //     config
 //   );
 
-//activeCases()
+activeCases()
 
 $.when(
   $.ajax({
@@ -110,12 +110,11 @@ function findVisit(user, timestamp, visits) {
       document.getElementById("active_cases").innerHTML = visits.length
     },
   })
-  findTables()
 }
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
 
-findTables()
+//findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -188,7 +187,6 @@ function findTables() {
     },
   })
 }
-
 
 // D) Function to create Chart for Types ranking
 function getColors(length) {
@@ -263,7 +261,6 @@ function activeCases2() {
       }
     },
   })
-  
 }
 
 function findVisit2(user, timestamp, visits) {
@@ -380,12 +377,9 @@ function rankingTypes2(ranks) {
     data: data,
   }
 
-  const c = Chart.getChart(rankingsActive)
+  const c = Chart.getChart(rankings)
   if (c) c.destroy()
-  const rankChart2 = new Chart(
-    document.getElementById("rankingsActive"),
-    config
-  )
+  const rankChart2 = new Chart(document.getElementById("rankings"), config)
 }
 
 // Function to create the object with the id of the place and the number the place has been visited
@@ -535,7 +529,7 @@ function createWeekChart(visits) {
     },
   }
 
-  const c = Chart.getChart("weekVisits")
+  const c = Chart.getChart("rankings")
   if (c) c.destroy()
-  const rankChart3 = new Chart(document.getElementById("weekVisits"), config)
+  const rankChart3 = new Chart(document.getElementById("rankings"), config)
 }
