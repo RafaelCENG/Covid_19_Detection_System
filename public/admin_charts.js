@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 // CHARTS
 // const Chart = require('chart.js');
 // const labels = [
@@ -114,7 +118,11 @@ function findVisit(user, timestamp, visits) {
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
 
+<<<<<<< HEAD
+findTables()
+=======
 //findTables()
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 function findTables() {
   let arr = []
   $.ajax({
@@ -189,6 +197,28 @@ function findTables() {
 }
 
 // D) Function to create Chart for Types ranking
+<<<<<<< HEAD
+ function getColors(length){
+  let pallet = ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b", "#F012BE", "#3D9970", "#111111", "#AAAAAA"];
+  let colors = [];
+  for(var i = 0; i < length; i++) {
+    colors.push(pallet[i % (pallet.length - 1)]);
+  }
+
+  return colors;
+}
+
+function rankingTypes(ranks) {
+  //const labels = ["January", "February", "March", "April", "May", "June"]
+  var data = {
+  labels: Object.keys(ranks),
+   datasets: [
+      { 
+        data: Object.values(ranks),
+        backgroundColor: getColors(Object.values(ranks).length),
+      },
+     
+=======
 
 function rankingTypes(ranks) {
   //const labels = ["January", "February", "March", "April", "May", "June"]
@@ -215,6 +245,7 @@ function rankingTypes(ranks) {
         ],
         data: Object.values(ranks),
       },
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
     ],
   }
   console.log(data)
@@ -232,7 +263,11 @@ function rankingTypes(ranks) {
 // E) Ranking POIS from Active Cases Visits
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
+<<<<<<< HEAD
+activeCases2()
+=======
 //activeCases2()
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".
@@ -355,9 +390,14 @@ function rankingTypes2(ranks) {
     datasets: [
       {
         label: "My First dataset",
+<<<<<<< HEAD
+        data: Object.values(ranks),
+        backgroundColor: getColors(Object.values(ranks).length),
+=======
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgb(255, 99, 132)",
         data: Object.values(ranks),
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
       },
     ],
   }
@@ -394,6 +434,9 @@ function weekValue() {
   let week = weekNum[1]
   console.log(week)
   let firstDay = getDateOfISOWeek(week, year)
+<<<<<<< HEAD
+  console.log(firstDay)
+=======
   let visitsPerDay = []
   for (i = 0; i < 7; i++) {
     if (i == 0) {
@@ -410,6 +453,7 @@ function weekValue() {
   }
   console.log(visitsPerDay)
   createWeekChart(visitsPerDay)
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 }
 
 function getDateOfISOWeek(w, y) {
@@ -420,6 +464,8 @@ function getDateOfISOWeek(w, y) {
   else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay())
   return ISOweekStart
 }
+<<<<<<< HEAD
+=======
 
 // Function to find the visits of each day from the given Week
 function weekVisits(dayOne, dayOne2, visitsPerDay) {
@@ -528,3 +574,4 @@ function createWeekChart(visits) {
   if (c) c.destroy()
   const rankChart3 = new Chart(document.getElementById("weekVisits"), config)
 }
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555

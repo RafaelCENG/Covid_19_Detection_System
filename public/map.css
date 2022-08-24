@@ -38,6 +38,7 @@
     background: rgba(0, 0, 0, 0.8);
     z-index: 2;
 }
+<<<<<<< Updated upstream
     
 .overlay .confirm-box {
   cursor: pointer;
@@ -54,6 +55,29 @@
     transition:background-image 3s ease-in-out;
   background-color: #2c3e50;
 }
+<<<<<<< HEAD
+    
+=======
+
+.overlay .confirm-box {
+  cursor: pointer;
+  background-color: #226a80;
+  color: #fff;
+  width: 700px;
+  text-align: center;
+  font-size:20px;
+  padding: 30px 0;
+  margin: 0 auto;
+  transition:background-image 3s ease-in-out;
+}
+.confirm-box:hover{
+  transition:background-image 3s ease-in-out;
+  background-color: #2c3e50;
+}
+
+>>>>>>> Stashed changes
+=======
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 .close {
     cursor: pointer;
 }

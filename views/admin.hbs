@@ -16,6 +16,21 @@
     <title>Document</title>
 </head>
 <body>
+<<<<<<< HEAD
+    <nav>
+        <!--<img src="pin.png">-->
+        <input type="checkbox" id="toggle-menu">
+        <label class="menu-icon" for="toggle-menu">
+            <a>
+                <i class="fa fa-bars" id="menu-icon"></i>
+                <i class="fa fa-times" id="cancel"></i>
+            </a>
+        </label>
+        <ul>
+            
+            {{#if user }}
+                <li><a href="/admin_charts">Chart</a></li>
+=======
 <nav>
         <img src="logo3.png">
         <input type="checkbox" id="toggle-menu">
@@ -30,6 +45,7 @@
             {{#if user }}
             <li><a href="/">Home</a></li>
                 <li><a href="/profile">Profile</a></li>
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
                 <li><a href="/auth/logout">Logout</a></li>
             {{else}}
                 <li><a href="/login">Login</a></li>
@@ -39,7 +55,11 @@
     </nav>
   <div class="mb-3">
   <form action="/uploadFile"  method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
+    <input class="form-control1" type="file" name="fileupload" accept="application/json" required>
+=======
     <input class="form-control" type="file" name="fileupload" accept="application/json" required>
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
     {{!-- <input id="upload-button" class="btn btn-primary" type="submit" onclick="uploadFile()" value="Submit"> --}}
     <button class="btn btn-primary" >Upload File</button>
   </form>
