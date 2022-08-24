@@ -30,7 +30,7 @@
 //     config
 //   );
 
-activeCases()
+//activeCases()
 
 $.when(
   $.ajax({
@@ -110,6 +110,7 @@ function findVisit(user, timestamp, visits) {
       document.getElementById("active_cases").innerHTML = visits.length
     },
   })
+  findTables()
 }
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
@@ -261,6 +262,7 @@ function activeCases2() {
       }
     },
   })
+  
 }
 
 function findVisit2(user, timestamp, visits) {

@@ -12,8 +12,6 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background: url(Untitl.png)no-repeat;
-  background: url(design.jpg)no-repeat;
   background: url(pic1.png)no-repeat;
   background-size: cover;
   /*background-position: center;*/
@@ -453,12 +451,40 @@ background: #0C4F60;
 }
 
 .chart-container{
-  width:100%;
+  width:10%;
   max-width:600px;
   display: block;
   margin: 0 auto;
 }
 
+.chr1{
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: absolute;
+  left: 0px;
+  top: 310px;
+  
+}
+.chr2{
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: absolute;
+  left:118px;
+  top: 310px;
+  
+}
 
 @media screen and (max-width: 1118px){
   label #menu-icon{

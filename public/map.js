@@ -334,7 +334,7 @@ function getDateTime() {
 }
 
 // Function to add the visit in the database from user. Also he can add an estimation of people in the place if he wants.
-let visit = `<button type="submit" class="leaflet-touch leaflet-control-geocoder-icon" onclick="showConfirmBox()">Click</button>`
+let visit = `<button type="submit" class="leaflet-touch " onclick="showConfirmBox()">Click</button>`
 //function addVisit(){
 function showConfirmBox() {
   document.getElementById("overlay").hidden = false
