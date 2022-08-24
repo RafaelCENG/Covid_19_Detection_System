@@ -1,34 +1,35 @@
-*{
+* {
     margin: 0;
     top: 0;
 }
 
-#map{
-   z-index: 1;
+#map {
+    z-index: 1;
     position: relative;
     height: 500px;
     width: 100%;
 }
 
 .custom-popup .leaflet-popup-content-wrapper {
-    background:#2c3e50;
-    color:#fff;
-    font-size:16px;
-    line-height:50px;
+    background: #2c3e50;
+    color: #fff;
+    font-size: 16px;
+    line-height: 50px;
+}
 
-    
-}
 .custom-popup .leaflet-popup-content-wrapper a {
-    color:rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
+
 .custom-popup .leaflet-popup-tip-container {
-    width:30px;
-    height:15px;
+    width: 30px;
+    height: 15px;
 }
+
 .custom-popup .leaflet-popup-tip {
-    border-left:15px solid transparent;
-    border-right:15px solid transparent;
-    border-top:15px solid #2c3e50;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #2c3e50;
 }
 
 .overlay {
@@ -42,36 +43,38 @@
 }
 
 .overlay .confirm-box {
-  cursor: pointer;
-  background-color: #226a80;
-  color: #fff;
-  width: 700px;
-  text-align: center;
-  font-size:20px;
-  padding: 30px 0;
-  margin: 0 auto;
-  transition:background-image 3s ease-in-out;
+    cursor: pointer;
+    background-color: #226a80;
+    color: #fff;
+    width: 700px;
+    text-align: center;
+    font-size: 20px;
+    padding: 30px 0;
+    margin: 0 auto;
+    transition: background-image 3s ease-in-out;
 }
-.confirm-box:hover{
-    transition:background-image 3s ease-in-out;
-  background-color: #2c3e50;
+
+.confirm-box:hover {
+    transition: background-image 3s ease-in-out;
+    background-color: #2c3e50;
 }
 
     
 .overlay .confirm-box {
-  cursor: pointer;
-  background-color: #226a80;
-  color: #fff;
-  width: 700px;
-  text-align: center;
-  font-size:20px;
-  padding: 30px 0;
-  margin: 0 auto;
-  transition:background-image 3s ease-in-out;
+    cursor: pointer;
+    background-color: #226a80;
+    color: #fff;
+    width: 700px;
+    text-align: center;
+    font-size: 20px;
+    padding: 30px 0;
+    margin: 0 auto;
+    transition: background-image 3s ease-in-out;
 }
-.confirm-box:hover{
-  transition:background-image 3s ease-in-out;
-  background-color: #2c3e50;
+
+.confirm-box:hover {
+    transition: background-image 3s ease-in-out;
+    background-color: #2c3e50;
 }
 
 
@@ -89,12 +92,12 @@
     line-height: 50px;
     padding: 0;
     width: 50px;
-  }
-  
+}
+
 #search_button:focus {
     outline: none;
 }
-  
+
 #search_button i {
     width: 100%;
     color: #6d7b98;

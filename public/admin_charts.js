@@ -115,7 +115,7 @@ function findVisit(user, timestamp, visits) {
 
 //UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
 
-//findTables()
+findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -188,6 +188,7 @@ function findTables() {
     },
   })
 }
+
 
 // D) Function to create Chart for Types ranking
 function getColors(length) {
