@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
     <nav>
-        <h4>Node MySQL</h4>
-=======
-        <nav>
-        <!--<img src="n.jpg">-->
+        <img src="logo3.png">
         <input type="checkbox" id="toggle-menu">
         <label class="menu-icon" for="toggle-menu">
             <a>
@@ -26,18 +26,6 @@
                 <i class="fa fa-times" id="cancel"></i>
             </a>
         </label>
->>>>>>> Stashed changes
-=======
-        <nav>
-        <img src="logo3.png">
-        <input type="checkbox" id="toggle-menu">
-        <label class="menu-icon" for="toggle-menu">
-    <a>
-        <i class="fa fa-bars" id="menu-icon"></i>
-        <i class="fa fa-times" id="cancel"></i>
-    </a>
-</label>
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/profile">Profile</a></li>
@@ -47,54 +35,58 @@
 
     <div class="container mt-4">
         <div class="row">
-           <div class="col-4">
+            <div class="col-4">
                 <div class="card">
                     <div class="avatar-ctn">
-                        <img src="/icon.jpg" class="avatar" alt="user profile picture"/>
+                        <img src="/icon.jpg" class="avatar" alt="user profile picture" />
                     </div>
                     <div class="card-body1">
-                        <h5 class = "card-title">{{ user.username }}     
-                            <button id="change_username"  class="fa-solid fa-pen-to-square btn" type="submit" value="Submit"></button>
+                        <h5 class="card-title">{{ user.username }}
+                            <button id="change_username" class="fa-solid fa-pen-to-square btn" type="submit"
+                                value="Submit"></button>
                             {{!-- Confirmation box --}}
                             <div class="overlay" id="overlay" hidden>
-                            <div class="confirm-box">
-                            <div onclick="closeConfirmBox()" class="close">&#10006;</div>
-                            <h2>Confirmation</h2>
-                            <p>Change User Name</p>
-                            <button class="defaultButton" onclick="isConfirm(true)">Apply</button>
-                            <button class ="defaultButton" onclick="isConfirm(false)">Cancel</button>
+                                <div class="confirm-box">
+                                    <div onclick="closeConfirmBox()" class="close">&#10006;</div>
+                                    <h2>Confirmation</h2>
+                                    <p>Change User Name</p>
+                                    <button class="defaultButton" onclick="isConfirm(true)">Apply</button>
+                                    <button class="defaultButton" onclick="isConfirm(false)">Cancel</button>
+                                </div>
                             </div>
-                         </div>
                         </h5>
                         <p class="card-text">Do you wanna make changes?</p>
-                        <a href="#" class = "btn btn-primary">{{user.email}}</a>
-                
-                    <div class="card-body1">
-                        <h5 class="card-title">{{user.username}} welcome back</h5>
-                        <p class="card-text">Where do you want to go?</p>
-                        <a href="http://localhost:5000/map" class="btn btn-primary">Go Back</a>
-                        <nav class="space">
-                        {{!-- Button to redirect us to visit history --}}
-                        <a class="btn btn-primary" href="/visit_history" role="button">Visit History</a>
-                        {{!-- Button to redirect us to case history --}}
-                        <a class="btn btn-primary" href="/case_history" role="button">Case History</a>
-                        {{!-- Button to redirect us to change password --}}
-                        <a class="btn btn-primary" href="/changepass" role="button">Change Password</a>
-                        </nav>
+                        <a href="#" class="btn btn-primary">{{user.email}}</a>
+
+                        <div class="card-body1">
+                            <h5 class="card-title">{{user.username}} welcome back</h5>
+                            <p class="card-text">Where do you want to go?</p>
+                            <a href="http://localhost:5000/map" class="btn btn-primary">Go Back</a>
+                            <nav class="space">
+                                {{!-- Button to redirect us to visit history --}}
+                                <a class="btn btn-primary" href="/visit_history" role="button">Visit History</a>
+                                {{!-- Button to redirect us to case history --}}
+                                <a class="btn btn-primary" href="/case_history" role="button">Case History</a>
+                                {{!-- Button to redirect us to change password --}}
+                                <a class="btn btn-primary" href="/changepass" role="button">Change Password</a>
+                            </nav>
+                        </div>
+
                     </div>
-                     
-                    </div>
-                    
+
                 </div>
-                
+
             </div>
 
-                        
-                       
+
+
         </div>
     </div>
-    <script>var current_user = {{{local_user}}} </script>
+    <script>var current_user = {{{ local_user }}} </script>
     <script src="/profile.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

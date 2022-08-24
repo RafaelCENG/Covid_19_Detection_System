@@ -1,118 +1,88 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-body{
+
+body {
   position: relative;
- width: 100%;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-  background: url(Untitl.png)no-repeat;
-=======
-  background: url(design.jpg)no-repeat;
->>>>>>> Stashed changes
-=======
-  background: url(pic1.png)no-repeat;
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
+  background: url(pic.jpg)no-repeat;
   background-size: cover;
-  /*background-position: center;*/
   background-repeat: no-repeat;
 }
 
 nav {
-    position: relative;
-    top: 0;
-    width: 100%;
-    padding: 30px 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    /*background-color: #226A80;*/
+  position: relative;
+  top: 0;
+  width: 100%;
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2cb8cd;
 }
 
-h4{
-  position: relative;
-  color: #000;
-  font-size: 30px;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 1px;
-=======
-    background: #2CB8CD;
-    
-}
-nav img{
+nav img {
   font-size: 30px;
   top: 12px;
   left: 5%;
->>>>>>> Stashed changes
-=======
-    
+
 }
-nav img{
+
+nav img {
   border: 5px solid white;
   width: 200px;
-  position: absolute;
   top: 12px;
   left: 5%;
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 }
 
 nav ul {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
 }
 
 nav li {
-    list-style: none;
+  list-style: none;
 }
 
 nav li a {
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 2px;
-    padding: 2px 15px;
-    border-radius: 20px;
-    transition: 0.3s;
-    transition-property: background;
-    width: 100px;
-    text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 2px 15px;
+  border-radius: 20px;
+  transition: 0.3s;
+  transition-property: background;
+  width: 100px;
+  text-transform: uppercase;
 }
 
-  
+
 nav li a:hover {
-    background: #B1D4E0;
+  background: #B1D4E0;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
-
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 #toggle-menu {
   display: none;
 }
 
-#toggle-menu:checked ~ .nav-bar {
+#toggle-menu:checked~.nav-bar {
   display: block;
 }
 
 #menu-icon,
-#cancel{
+#cancel {
   color: #000;
   font-size: 30px;
   float: right;
@@ -120,74 +90,16 @@ nav li a:hover {
   margin-right: 40px;
   cursor: pointer;
   display: none;
-  
+
 }
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
-@media(max-width: 1118px){
-  nav img{
-    left: 8%;
-  }
-}
-
-@media(max-width: 944px){
-  nav img{
-    left: 6%;
-    top: 2px;
-    width: 130px;
-  }
-  nav ul li a{
-    font-size: 17px;
-  }
-}
-
-@media(max-width: 860px){
-  label #menu-icon{
-    display: block;
-  }
-  ul{
-    position: fixed;
-    width: 100%;
-    height: 90vh;
-    background:#fff;
-    top: 80px;
-    left: -100%;
-    text-align: center;
-    transition: all .5s;
-    z-index: 999;
-    flex-direction: column;
-  }
-  nav ul li{
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  } 
-  nav ul li a{
-    font-size: 20px;
-  }
-  #toggle-menu:checked ~ ul {
-    left: 0;
-}
-  #toggle-menu:checked ~ label #menu-icon {
-    display: none;
-}
-  #toggle-menu:checked ~ label #cancel {
-    display: block;
-}
-}
-
-
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
-.container{
+.container {
   max-width: 650px;
   margin: 80px 200px;
   padding: 0 1px;
-
-
 }
-.container .jumbotron .display{
+
+.container .jumbotron .display {
   color: #226A80;
   font-size: 55px;
   text-transform: uppercase;
@@ -198,19 +110,19 @@ nav li a:hover {
 
 }
 
-.container .jumbotron .display span{
-    color: #000;
-    font-size: 50px;
-    font-weight: 600;
+.container .jumbotron .display span {
+  color: #000;
+  font-size: 50px;
+  font-weight: 600;
 }
 
-.jumbotron p{
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 40px;
+.jumbotron p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
 }
 
-.container .btn{
+.container .btn {
   color: #fff;
   background: #226a80;
   text-decoration: none;
@@ -223,29 +135,29 @@ nav li a:hover {
   transition-property: background;
 }
 
-.container .btn:hover{
+.container .btn:hover {
   background: #0C4F60;
 }
 
 /*Forms*/
 
-.card{
+.card {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 500px;
   background: #fff;
   border-radius: 10px;
 }
 
-.card .card-header{
+.card .card-header {
   text-align: center;
   padding: 0 0 30px 0;
   border-bottom: 1px solid #226a80;
 }
 
-.card .card-body{
+.card .card-body {
   padding: 0 40px;
   box-sizing: border-box;
 }
@@ -258,18 +170,18 @@ nav li a:hover {
   text-align: center;
 }
 
-.avatar{
+.avatar {
   width: 30%;
-  border-bottom: 1px solid rgba(0,0,0,0.125); 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.card .card-body1{
+.card .card-body1 {
   padding: 0 40px;
   box-sizing: border-box;
   text-align: center;
 }
 
-.space{
+.space {
   justify-content: center;
   font-weight: 700;
   letter-spacing: 2px;
@@ -278,84 +190,74 @@ nav li a:hover {
 
 /* Search Bar */
 .wrapper {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    margin: 0 auto;
-=======
->>>>>>> Stashed changes
-=======
-    /*margin: 0 auto;
-    box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.15);*/
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
-    background: #ffffff;
-    border-radius: 5px;
-    position: relative;
-    width: 450px;
-  }
+  margin-left: 1%;
+  background: #ffffff;
+  border-radius: 5px;
+  position: relative;
+  width: 450px;
+}
 
-  .container1 .btn{
-    color: #fff;
-    background: #226a80;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: 0.3s;
-    transition-property: background;
-  }
-  
-  .container1 .btn:hover{
-    background: #0C4F60;
-  }
+.container1 .btn {
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+}
 
-  input {
-    width:100%;
-    border: none;
-    height: 50px;
-    border-radius: 5px;
-    padding: 0px 40px 0px 10px;
-    font-size: 18px;
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.1);
-  }
-  
-  input:focus {
-    outline: none;
-  }
-  
-  .results {
-    padding: 0px;
-  }
-  
-  .results ul {margin: 0; padding: 0; }
-  .results ul li {
-    list-style: none;
-    border-radius: 3px;
-    opacity: 0;
-    display: none;
-    padding: 8px 12px;
-    transition: all .5s linear;
-  }
-  
-  .show .results ul li {
-    opacity: 1;
-    display: block;
-  }
-  
-  .show .results {
-    padding: 10px;
-  }
-  
-  .results ul li:hover {
-    background: #ececec
-  }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
+.container1 .btn:hover {
+  background: #0C4F60;
+}
 
+input {
+  width: 100%;
+  border: none;
+  height: 50px;
+  border-radius: 5px;
+  padding: 0px 40px 0px 10px;
+  font-size: 18px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+  outline: none;
+}
+
+.results {
+  padding: 0px;
+}
+
+.results ul {
+  margin: 0;
+  padding: 0;
+}
+
+.results ul li {
+  list-style: none;
+  border-radius: 3px;
+  opacity: 0;
+  display: none;
+  padding: 8px 12px;
+  transition: all .5s linear;
+}
+
+.show .results ul li {
+  opacity: 1;
+  display: block;
+}
+
+.show .results {
+  padding: 10px;
+}
+
+.results ul li:hover {
+  background: #ececec
+}
 
 /* Style the tab */
 .tab {
@@ -365,21 +267,21 @@ nav li a:hover {
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-    color: #fff;
-    background: #226a80;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: 0.3s;
-    transition-property: background;
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background:#0C4F60;
+  background: #0C4F60;
 
 }
 
@@ -395,21 +297,73 @@ nav li a:hover {
   border: 1px solid #ccc;
   border: none;
 }
-.table{
+
+.table {
   border: #0C4F60;
   font-size: 100%;
 }
 
 /*Button Popup*/
 
-.confirm-box{
+.confirm-box {
   display: block;
   width: 160px;
 }
+
 /*Admin*/
 
-.btn {
-<<<<<<< HEAD
+#deleteData {
+  color: #fff;
+  background: red;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+  width: 250px;
+  margin-top: 1%;
+}
+
+#deleteData:hover {
+  background: red;
+}
+
+#btnup {
+  color: #fff;
+  background: #226A80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+  margin-top: 1%;
+}
+
+#btnup:hover {
+  background: #0C4F60;
+}
+
+.form-control1 {
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+
+}
+
+.form-control1:hover {
   color: #fff;
   background: #226a80;
   text-decoration: none;
@@ -420,58 +374,23 @@ nav li a:hover {
   border-radius: 5px;
   transition: 0.3s;
   transition-property: background;
-  }
-  
-  .btn:hover{
-  background: #0C4F60;
-  }
-
-.form-control1{
-  color: #fff;
-  background: #226a80;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 2px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: 0.3s;
-  transition-property: background;
-
 }
-.form-control1:hover{
-  background: #0C4F60;
-  }
-=======
-color: #fff;
-background: #226a80;
-text-decoration: none;
-text-transform: uppercase;
-font-weight: 700;
-letter-spacing: 2px;
-padding: 10px 20px;
-border-radius: 5px;
-transition: 0.3s;
-transition-property: background;
-}
-
-.btn:hover{
-background: #0C4F60;
-}
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
 
 /*Admin Chart*/
 
-.onetable,th,td{
+.onetable,
+th,
+td {
   color: black;
   font-size: 15px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 1px;
   line-height: 20px;
   border: 1px solid black;
   border-collapse: collapse;
   text-align: center;
+  margin-top: 1%;
 }
 
 .weekday {
@@ -481,34 +400,35 @@ background: #0C4F60;
   color: #000;
   margin-top: 3%;
   text-transform: uppercase;
+  margin-left: 0.5%;
 }
 
-.choice{
+.choice {
   letter-spacing: 1px;
   font-size: 15px;
   font-weight: 500;
   color: #000;
   text-transform: uppercase;
 }
-<<<<<<< HEAD
 
-.chart-container{
-  width:100%;
-  max-width:600px;
+.chart-container {
+  width: 100%;
+  max-width: 600px;
   display: block;
   margin: 0 auto;
 }
 
 
-@media screen and (max-width: 1118px){
-  label #menu-icon{
+@media(max-width: 1118px) {
+  label #menu-icon {
     display: block;
   }
-  nav ul{
+
+  nav ul {
     position: fixed;
     width: 100%;
     height: 90vh;
-    background:#fff;
+    background: #fff;
     top: 80px;
     left: -100%;
     text-align: center;
@@ -516,15 +436,18 @@ background: #0C4F60;
     transition: all .5s;
     flex-direction: column;
   }
-  nav ul li{
+
+  nav ul li {
     display: block;
     margin: 50px 0;
     line-height: 30px;
-  } 
-  nav ul li a{
+  }
+
+  nav ul li a {
     font-size: 20px;
   }
-  .container .jumbotron .display{
+
+  .container .jumbotron .display {
     color: #226A80;
     font-size: 30px;
     text-transform: uppercase;
@@ -534,34 +457,28 @@ background: #0C4F60;
     margin-bottom: 15px;
     justify-content: center;
   }
-  .container .jumbotron .display span{
+
+  .container .jumbotron .display span {
     color: #000;
     font-size: 25px;
     font-weight: 600;
-}
+  }
 
-.jumbotron p{
+  .jumbotron p {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 20px;
-    flex-direction:initial;
-}
-  #toggle-menu:checked ~ ul {
+  }
+
+  #toggle-menu:checked~ul {
     left: 0;
-}
-  #toggle-menu:checked ~ label #menu-icon {
+  }
+
+  #toggle-menu:checked~label #menu-icon {
     display: none;
-}
-  #toggle-menu:checked ~ label #cancel {
+  }
+
+  #toggle-menu:checked~label #cancel {
     display: block;
+  }
 }
-}
->>>>>>> Stashed changes
-=======
-.chart-container {
-  position: relative;
-  margin: auto;
-  height: 25vh;
-  width: 25vw;
-}
->>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
