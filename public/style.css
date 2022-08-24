@@ -8,14 +8,15 @@
 }
 body{
   position: relative;
-  width: 100%;
+ width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background: url(pic1.png)no-repeat;
   background-size: cover;
-  background-position: center;
+  /*background-position: center;*/
+  background-repeat: no-repeat;
 }
 
 nav {
@@ -33,7 +34,6 @@ nav img{
   width: 200px;
   position: absolute;
   top: 12px;
-
   left: 5%;
 }
 
@@ -398,4 +398,10 @@ background: #0C4F60;
   font-weight: 500;
   color: #000;
   text-transform: uppercase;
+}
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 25vh;
+  width: 25vw;
 }
