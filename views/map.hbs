@@ -25,13 +25,15 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         
        
  
 </head>
-
 <body>
      <nav>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         <h4>Node MySQL</h4>
 =======
@@ -45,30 +47,60 @@
         </label>
 >>>>>>> Stashed changes
         <ul>
+=======
+        
+        <img src="logo3.png">
+        <input type="checkbox" id="toggle-menu">
+        <label class="menu-icon" for="toggle-menu">
+    <a>
+        <i class="fa fa-bars" id="menu-icon"></i>
+        <i class="fa fa-times" id="cancel"></i>
+    </a>
+</label>
+<ul>
+>>>>>>> aef8e3d956ed5b9f6b28389a74d5836c86522555
             <li><a href="/">Home</a></li>
             <li><a href="/profile">Profile</a></li>
             <li><a href="/auth/logout">Logout</a></li>
         </ul>
     </nav>
-
-    <h1>PATRAS MAP</h1>
+    
     <div class='custom-popup' id='map'></div>
 
     {{!-- Search Bar --}}
     <div class="wrapper">
         <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search" aria-label="Search" autocomplete="chrome-off">
-        <button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>
+        <button id='search_button' class="fa fa-search" onclick="mapSearching()" type="button" ></button>
+        <!--<button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>-->
         <div class="results">
-          <ul>
-          </ul>
-        </div>
+    </div>
     </form>
     </div>
-
+ <div class="space">
+    <div class="container1">
     {{!-- Confirmed Case Button --}}
     <button id="case" class="btn btn-outline-danger" type="submit" value="Submit">Confirmed Case</button>
 
+     {{!-- Possible contact with case Button --}}
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="possible_case" class="btn btn-outline-danger" type="submit" value="Submit" onclick="sevenDaysConfirmed()">Possible Contact with Case</button>
+</div>
+</div>
+    {{!-- PopUp with possible contacts after pressing the button --}}
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Possible Contacts</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div id="modal-body" class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div>
+    
     {{!-- Confirmation box --}}
     <div class="overlay" id="overlay" hidden>
     <div class="confirm-box">
@@ -83,5 +115,6 @@
     <script>var current_user = {{{user}}} </script>
     <script src="/map.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </body>
 </html>
