@@ -1,4 +1,3 @@
-/*Google Fonts- Poppins*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300&display=swap');
 *{
   margin: 0;
@@ -13,7 +12,11 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+<<<<<<< Updated upstream
   background: url(Untitl.png)no-repeat;
+=======
+  background: url(design.jpg)no-repeat;
+>>>>>>> Stashed changes
   background-size: cover;
   background-position: center;
 }
@@ -31,6 +34,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+<<<<<<< Updated upstream
     /*background-color: #226A80;*/
 }
 
@@ -42,12 +46,22 @@ h4{
   text-transform: uppercase;
   font-weight: 900;
   letter-spacing: 1px;
+=======
+    background: #2CB8CD;
+    
+}
+nav img{
+  font-size: 30px;
+  top: 12px;
+  left: 5%;
+>>>>>>> Stashed changes
 }
 
 nav ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    list-style: none;
 }
 
 nav li {
@@ -73,9 +87,34 @@ nav li a:hover {
     background: #B1D4E0;
 }
 
+<<<<<<< Updated upstream
+=======
+#toggle-menu {
+  display: none;
+}
+
+#toggle-menu:checked ~ .nav-bar {
+  display: block;
+}
+
+#menu-icon,
+#cancel{
+  color: #000;
+  font-size: 30px;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+  
+}
+
+>>>>>>> Stashed changes
 .container{
   max-width: 650px;
   margin: 80px 200px;
+  padding: 0 1px;
+
 
 }
 .container .jumbotron .display{
@@ -86,6 +125,7 @@ nav li a:hover {
   letter-spacing: 2px;
   line-height: 60px;
   margin-bottom: 30px;
+
 }
 
 .container .jumbotron .display span{
@@ -162,7 +202,10 @@ nav li a:hover {
 /* Search Bar */
 
 .wrapper {
+<<<<<<< Updated upstream
     margin: 0 auto;
+=======
+>>>>>>> Stashed changes
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.15);
@@ -210,3 +253,188 @@ nav li a:hover {
   .results ul li:hover {
     background: #ececec
   }
+<<<<<<< Updated upstream
+=======
+
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  max-width: 650px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    color: #fff;
+    background: #226a80;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+    transition-property: background;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background:#0C4F60;
+
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #226a80;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border: none;
+}
+.table{
+  border: #0C4F60;
+  font-size: 100%;
+}
+
+/*Button Popup*/
+
+.confirm-box{
+  display: block;
+  width: 160px;
+}
+/*Admin*/
+
+.btn {
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+  }
+  
+  .btn:hover{
+  background: #0C4F60;
+  }
+
+.form-control1{
+  color: #fff;
+  background: #226a80;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  transition-property: background;
+
+}
+.form-control1:hover{
+  background: #0C4F60;
+  }
+
+/*Admin Chart*/
+
+.onetable,th,td{
+  color: black;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 20px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.weekday {
+  letter-spacing: 1px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  margin-top: 3%;
+  text-transform: uppercase;
+}
+
+.choice{
+  letter-spacing: 1px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.chart-container{
+  width:100%;
+  max-width:600px;
+  display: block;
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1118px){
+  label #menu-icon{
+    display: block;
+  }
+  nav ul{
+    position: fixed;
+    width: 100%;
+    height: 90vh;
+    background:#fff;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    z-index: 999;
+    transition: all .5s;
+    flex-direction: column;
+  }
+  nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  } 
+  nav ul li a{
+    font-size: 20px;
+  }
+  .container .jumbotron .display{
+    color: #226A80;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    justify-content: center;
+  }
+  .container .jumbotron .display span{
+    color: #000;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.jumbotron p{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    flex-direction:initial;
+}
+  #toggle-menu:checked ~ ul {
+    left: 0;
+}
+  #toggle-menu:checked ~ label #menu-icon {
+    display: none;
+}
+  #toggle-menu:checked ~ label #cancel {
+    display: block;
+}
+}
+>>>>>>> Stashed changes
