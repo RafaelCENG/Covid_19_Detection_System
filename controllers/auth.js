@@ -26,6 +26,7 @@ exports.login = async (req, res) => {
       "SELECT * FROM users  WHERE username = ?",
       [username],
       async (error, results) => {
+        console.log(results)
         if (results[0].admin == 0) {
           if (
             !results ||
@@ -54,22 +55,29 @@ exports.login = async (req, res) => {
             res.status(200).redirect("/map")
           }
         } else {
-          const id = results[0].id
+          if (!results || !(password == results[0].password)) {
+            res.status(401).render("login", {
+              message: "Username or Password is incorrect",
+            })
+          } else {
+            const id = results[0].id
 
-          const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRES_IN,
-          })
+            const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+              expiresIn: process.env.JWT_EXPIRES_IN,
+            })
 
-          console.log("The token is: " + token)
+            console.log("The token is: " + token)
 
-          const cookieOptions = {
-            expires: new Date(
-              Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-            ),
-            httpOnly: true,
+            const cookieOptions = {
+              expires: new Date(
+                Date.now() +
+                  process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+              ),
+              httpOnly: true,
+            }
+            res.cookie("jwt", token, cookieOptions)
+            res.status(200).redirect("/admin")
           }
-          res.cookie("jwt", token, cookieOptions)
-          res.status(200).redirect("/admin")
         }
       }
     )

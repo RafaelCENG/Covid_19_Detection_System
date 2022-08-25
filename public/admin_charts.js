@@ -1,37 +1,6 @@
 // CHARTS
-// const Chart = require('chart.js');
-// const labels = [
-//     'January',
-//     'February',
-//     'March',
-//     'April',
-//     'May',
-//     'June',
-//   ];
-
-//   const data = {
-//     labels: labels,
-//     datasets: [{
-//       label: 'My First dataset',
-//       backgroundColor: 'rgb(255, 99, 132)',
-//       borderColor: 'rgb(255, 99, 132)',
-//       data: [0, 10, 5, 2, 20, 30, 45],
-//     }]
-//   };
-
-//   const config = {
-//     type: 'line',
-//     data: data,
-//     options: {}
-//   };
-
-//   const myChart = new Chart(
-//     document.getElementById('myChart'),
-//     config
-//   );
 
 activeCases()
-
 $.when(
   $.ajax({
     // A. Total Visits
@@ -112,9 +81,6 @@ function findVisit(user, timestamp, visits) {
   })
 }
 
-//UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
-
-//findTables()
 function findTables() {
   let arr = []
   $.ajax({
@@ -177,10 +143,8 @@ function findTables() {
               })
             }
           }
-          console.log(countObj)
           const ranks = {}
           createRanking(countObj, ranks)
-          console.log(ranks)
           rankingTypes(ranks)
         },
       })
@@ -216,7 +180,6 @@ function getColors(length) {
 }
 
 function rankingTypes(ranks) {
-  //const labels = ["January", "February", "March", "April", "May", "June"]
   var data = {
     labels: Object.keys(ranks),
     datasets: [
@@ -226,8 +189,6 @@ function rankingTypes(ranks) {
       },
     ],
   }
-  console.log(data)
-  console.log(Object.values(ranks))
 
   const config = {
     type: "pie",
@@ -240,8 +201,6 @@ function rankingTypes(ranks) {
 
 // E) Ranking POIS from Active Cases Visits
 
-//UNCOMMENT FOR CHARTS DISABLE FOR PRODUCTIVITY
-//activeCases2()
 function activeCases2() {
   $.ajax({
     //AJAX type is "Post".
@@ -321,11 +280,7 @@ function findTables2(visitsActive) {
       tableNames.forEach((element) => {
         countObj[element] = 0
       })
-      console.log(visitsActive)
-      console.log(visitsActive.length)
-      console.log(tableNames.length)
       for (i = 0; i < visitsActive.length; i++) {
-        console.log(visitsActive[i])
         for (j = 0; j < tableNames.length; j++) {
           $.ajax({
             //AJAX type is "Post".
@@ -348,10 +303,8 @@ function findTables2(visitsActive) {
           })
         }
       }
-      console.log(countObj)
       const ranks2 = {}
       createRanking(countObj, ranks2)
-      console.log(ranks2)
       rankingTypes2(ranks2)
     },
   })
@@ -369,8 +322,6 @@ function rankingTypes2(ranks) {
       },
     ],
   }
-  console.log(data)
-  console.log(Object.values(ranks))
 
   const config = {
     type: "pie",
@@ -393,11 +344,9 @@ function createRanking(countObj, ranks) {
 // PART F
 function weekValue() {
   var weekNum = document.getElementById("myWeek").value
-  console.log(weekNum.split("-W"))
   weekNum = weekNum.split("-W")
   let year = weekNum[0]
   let week = weekNum[1]
-  console.log(week)
   let firstDay = getDateOfISOWeek(week, year)
   let visitsPerDay = []
   for (i = 0; i < 7; i++) {
@@ -413,7 +362,6 @@ function weekValue() {
     dayOne2 = days[1]
     weekVisits(dayOne, dayOne2, visitsPerDay)
   }
-  console.log(visitsPerDay)
   createWeekChart(visitsPerDay)
 }
 
@@ -439,7 +387,6 @@ function weekVisits(dayOne, dayOne2, visitsPerDay) {
     data: JSON.stringify({ dayOne: dayOne, dayOne2: dayOne2 }),
     success: function (html) {
       visitsPerDay.push(Object.values(html.results[0])[0])
-      console.log(visitsPerDay)
     },
   })
 }
@@ -472,14 +419,7 @@ function allDay(firstDay) {
 }
 
 function createWeekChart(visits) {
-  console.log(visits.toString())
-  console.log("PerDay", visits)
-  console.log("PerDay", visits[0])
-  console.log("PerDay", visits.length)
-  console.log(JSON.parse(JSON.stringify(visits)))
-
   const visits2 = Object.values(visits)
-  console.log(visits2)
   const labels = [
     "Monday",
     "Tuesday",
@@ -496,24 +436,14 @@ function createWeekChart(visits) {
         label: "Visits",
         data: visits,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
+          "rgba(153, 102, 255)",
+          "rgba(201, 203, 207)",
         ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
-        borderWidth: 1,
       },
     ],
   }
@@ -525,6 +455,7 @@ function createWeekChart(visits) {
         y: {
           beginAtZero: true,
         },
+        responsive: true,
       },
     },
   }

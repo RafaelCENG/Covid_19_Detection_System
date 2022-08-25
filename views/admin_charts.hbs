@@ -16,7 +16,7 @@
 
 <body>
   <nav>
-    <!--<img src="pin.png">-->
+    <img src="logo3.png">
     <input type="checkbox" id="toggle-menu">
     <label class="menu-icon" for="toggle-menu">
       <a>
@@ -56,13 +56,19 @@
     </tr>
   </table>
 
-  <label class="weekday" for="week">What week would you like to start?</label>
-  <input class="choice" id="myWeek" type="week" name="week">
-  <button id="btnup" class="btn2 btn btn-danger" role="button" onclick="weekValue()">Try it</button>
+  <div class="chooseWeek">
+    <label class="weekday" for="week">Choose Week?</label>
+    <input class="choice" id="myWeek" type="week" name="week">
+    <button class="btnup btn3 btn2 btn btn-primary" role="button" onclick="weekValue()">Find</button>
+  </div>
+
 
   <!--koumpi gia charsets-->
-  <button class="btn2 btn btn-primary" onclick="findTables()">Chart1</button>
-  <button class="btn2 btn btn-primary" onclick="activeCases2()">Chart2</button>
+  <div class="chartbtns">
+      <button class="btnup btn2 btn btn-primary" onclick="findTables()">Chart Visits</button>
+      <button  class="btnup btn2 btn btn-primary" onclick="activeCases2()">Chart Active Visits</button>
+  </div>
+
 
   <div class="chart-container">
     <canvas id="rankings"></canvas>

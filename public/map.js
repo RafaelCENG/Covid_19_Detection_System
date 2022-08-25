@@ -1,7 +1,5 @@
 var map = L.map("map")
 
-console.log(current_user)
-
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution:
@@ -16,52 +14,6 @@ var layerGroup = L.layerGroup().addTo(map)
 var lc = L.control.locate().addTo(map)
 // request location update and set location
 lc.start()
-
-// array to hold estimations of a place
-//let estimations = []
-
-//creating the search bar and add to map
-//L.Control.geocoder().addTo(map)
-
-//markers
-// L.geoJSON(specific).addTo(map);
-
-/*
-
-$(document).ready(function(){
-  $("#search").keyup(function(){
-      var search = $(this).val();
-      if(search != ""){
-          $.ajax({
-              url: 'http://localhost:5000/getUsers',
-              type: 'GET',
-              data: {search: name},
-              dataType: 'json',
-              success:function(response){
-              
-                  var len = response.length;
-                  $("#display").empty();
-                  for( var i = 0; i<len; i++){
-                      var id = response[i]['id'];
-                      var name = response[i]['name'];
-
-                      $("#display").append("<li value='"+id+"'>"+name+"</li>");
-
-                  }
-
-                  // binding click event to li
-                  $("#display li").bind("click",function(){
-                      setText(this);
-                  });
-
-              }
-          });
-      }
-
-  });
-
-});
-*/
 
 const searchWrapper = document.querySelector(".wrapper")
 const resultsWrapper = document.querySelector(".results")
@@ -84,16 +36,12 @@ $(document).ready(function () {
       //If result found, this funtion will be called.
       success: function (html) {
         let arr = html.names
-        //  console.log(arr)
-        //   console.log(html.names[0].name)
         let results = []
         if (name.length) {
           results = arr.filter((item) => {
-            console.log("This item " + item.name)
             return item.name.toLowerCase().includes(name.toLowerCase())
           })
         }
-        // populateMap(results);
         renderResults(results)
       },
     })
@@ -140,15 +88,10 @@ function renderResults(results) {
 
 // Function to Find the POIS after pressing the Search Button
 async function mapSearching() {
-  console.log("My results")
-  console.log(new_results)
   search.value = ""
   resultsWrapper.innerHTML = ""
   let results = new_results.map((a) => a.name)
-  console.log("Results")
-  console.log(results)
   const res = await markers(results)
-  console.log("RESSSSSS", res)
   moreInfo(res)
 }
 async function markers(results) {
@@ -170,12 +113,10 @@ async function markers(results) {
   return result
 }
 async function moreInfo(res) {
-  console.log(res)
   //clear layerGroup
   layerGroup.clearLayers()
   currentTime = getDateTime()
   //estimations = []
-  console.log("Pop", res.results.length)
   for (i = 0; i < res.results.length; i++) {
     let dataSet = [
       res.results[i].id,
@@ -183,7 +124,6 @@ async function moreInfo(res) {
       currentTime[4] + 1,
       currentTime[4] + 2,
     ]
-    console.log(dataSet)
     populateMap(dataSet, res.results, i)
   }
 }
@@ -205,10 +145,6 @@ async function populateMap(dataSet, populate, i) {
       let userPosition = [lat, lng]
       let thresholdDistance = 5000 // In meters
       let numEstimation = 0
-      console.log(populate)
-      console.log(html.results)
-      console.log("Populate", populate.length)
-      console.log("I = ", i)
 
       numEstimation =
         Object.values(html.results[0])[1] + Object.values(html.results[0])[2]
@@ -245,31 +181,7 @@ async function populateMap(dataSet, populate, i) {
             visit
         )
 
-      console.log(numEstimation)
       let guardedLocation = [populate[i].lat, populate[i].lng]
-      console.log(populate[i].lat, populate[i].lng)
-      console.log("New counter", i)
-      // Create Button For the PopUp
-      //  defineYourWaypointOnClick(e: any) {
-      //  var container = L.DomUtil.create('div'),
-      //  startBtn = this.createButton('Start from this location', container),
-      //  destBtn = this.createButton('Go to this location', container);
-
-      //  L.DomEvent.on(startBtn, 'click', () => {
-      //   alert("toto");
-      //  });
-
-      //  L.DomEvent.on(destBtn, 'click', () => {
-      //   alert("tata");
-      //  });
-
-      //  createButton(label: string, container: any) {
-      //   var btn = L.DomUtil.create('button', '', container);
-      //   btn.setAttribute('type', 'button');
-      //   btn.innerHTML = label;
-      //   return btn;
-      //  }
-      // }
       if (map.distance(userPosition, guardedLocation) <= thresholdDistance) {
         L.marker([populate[i].lat, populate[i].lng], { icon: Icon })
           .on("click", markerOnClick)
@@ -280,12 +192,6 @@ async function populateMap(dataSet, populate, i) {
   })
 }
 
-// function  popUpEstimation(html) {
-//   console.log("Res")
-//   console.log(html.results[0])
-//   estimations.push(html.results[0])
-// }
-
 function getDateTime() {
   var now = new Date()
   var year = now.getFullYear()
@@ -294,9 +200,6 @@ function getDateTime() {
   var hour = now.getHours()
   var minute = now.getMinutes()
   var second = now.getSeconds()
-  // if(month.toString().length == 1) {
-  //     month = '0'+month;
-  // }
   if (day.toString().length == 1) {
     day = "0" + day
   }
@@ -335,7 +238,6 @@ function getDateTime() {
 
 // Function to add the visit in the database from user. Also he can add an estimation of people in the place if he wants.
 let visit = `<button type="submit" class="leaflet-touch " onclick="showConfirmBox()">Click</button>`
-//function addVisit(){
 function showConfirmBox() {
   document.getElementById("overlay").hidden = false
 }
@@ -347,10 +249,7 @@ function closeConfirmBox() {
 var namePois
 var idPois
 function markerOnClick(e) {
-  console.log(e)
-  //alert("hi. you clicked the marker at " + e.latlng.lat +e.latlng.lng);
   results = [e.latlng.lat, e.latlng.lng]
-  console.log("Results", results)
   $.ajax({
     //AJAX type is "Post".
     type: "POST",
@@ -362,7 +261,6 @@ function markerOnClick(e) {
     data: JSON.stringify({ results: results }),
     //If result found, this function will be called.
     success: function (html) {
-      console.log(html.results)
       namePois = html.results[0].name
       idPois = html.results[0].id
     },
@@ -370,13 +268,11 @@ function markerOnClick(e) {
 }
 
 function isConfirm(answer) {
-  console.log(new Date())
   visitTimestamp = new Date()
   visitTimestamp =
     visitTimestamp.toISOString().split("T")[0] +
     " " +
     visitTimestamp.toTimeString().split(" ")[0]
-  console.log(visitTimestamp)
   let data = [
     current_user.id,
     current_user.username,
@@ -385,12 +281,10 @@ function isConfirm(answer) {
     visitTimestamp,
   ]
   if (answer) {
-    console.log(visitTimestamp)
     var n = prompt("Check your number", "Type your number here")
     n = parseInt(n)
     if (Number.isInteger(n)) {
       data.push(n)
-      console.log(data)
       $.ajax({
         //AJAX type is "Post".
         type: "POST",
@@ -457,7 +351,6 @@ function checkCase() {
     data: { name: current_user.username },
     //If result found, this function will be called.
     success: function (html) {
-      //console.log(html.results[0].time)
       if (html.results.length > 0) {
         var result = html.results[0].time
         var today = new Date()
@@ -466,7 +359,6 @@ function checkCase() {
         const diffInMilliseconds =
           new Date(today).getTime() - new Date(result).getTime()
         const diffInDays = diffInMilliseconds / DAY_UNIT_IN_MILLISECONDS
-        console.log(diffInDays)
         if (diffInDays > 14) {
           newCase()
         } else {
@@ -482,16 +374,10 @@ function checkCase() {
 document.getElementById("case").onclick = function () {
   if (confirm("Are you sure you are positive?") == true) {
     checkCase()
-    console.log(current_user.username)
   } else {
     alert("You pressed Cancel!")
   }
 }
-
-// document.getElementById('possible_case').onClick = function() {
-//   alert("Check")
-//   sevenDaysConfirmed();
-// }
 
 // Function to get all the users which are confirmed cases from the current date
 function sevenDaysConfirmed() {
@@ -508,7 +394,6 @@ function sevenDaysConfirmed() {
       let arr = []
       let users_arr = []
       let common_pois_confirmed_arr = []
-      //console.log(html.results[0].time)
       if (html.results.length > 0) {
         for (i = 0; i < html.results.length; i++) {
           var today = new Date()
@@ -562,7 +447,6 @@ function findPois(user, common_pois_confirmed_arr, arr, flag, usersFlag) {
           html.results[j].name,
         ])
       }
-      console.log(common_pois_confirmed_arr)
       userB_sevenDaysCase(common_pois_confirmed_arr, arr, flag, usersFlag)
     },
   })
@@ -571,9 +455,6 @@ function findPois(user, common_pois_confirmed_arr, arr, flag, usersFlag) {
 // Function to check if userB has been diagnosed as a case within 7 days of the visit.
 function userB_sevenDaysCase(common_pois_confirmed_arr, arr, flag, usersFlag) {
   let FinalArr = []
-  console.log("Users confirmes cases", arr)
-  console.log("Common pois", common_pois_confirmed_arr)
-  console.log(common_pois_confirmed_arr.length)
   for (i = 0; i < common_pois_confirmed_arr.length; i++) {
     var searchUser = common_pois_confirmed_arr[i][0]
     var user_time = []
@@ -589,10 +470,8 @@ function userB_sevenDaysCase(common_pois_confirmed_arr, arr, flag, usersFlag) {
     diffInDays = diffInMilliseconds / DAY_UNIT_IN_MILLISECONDS
     if (-7 <= diffInDays <= 7) {
       FinalArr.push(common_pois_confirmed_arr[i])
-      console.log("Diff in days", diffInDays)
     }
   }
-  console.log(FinalArr)
   if (flag == usersFlag) {
     var ul = document.getElementById("modal-body")
     document.getElementById("modal-body").innerHTML = ""
@@ -609,33 +488,3 @@ function userB_sevenDaysCase(common_pois_confirmed_arr, arr, flag, usersFlag) {
     })
   }
 }
-
-// L.control.locate({
-//   position: 'topleft',  // set the location of the control
-//   drawCircle: true,  // controls whether a circle is drawn that shows the uncertainty about the location
-//   follow: false,  // follow the user's location
-//   setView: true, // automatically sets the map view to the user's location, enabled if `follow` is true
-//   keepCurrentZoomLevel: false, // keep the current map zoom level when displaying the user's location. (if `false`, use maxZoom)
-//   stopFollowingOnDrag: false, // stop following when the map is dragged if `follow` is true (deprecated, see below)
-//   remainActive: false, // if true locate control remains active on click even if the user's location is in view.
-//   markerClass: L.circleMarker, // L.circleMarker or L.marker
-//   circleStyle: {},  // change the style of the circle around the user's location
-//   markerStyle: {},
-//   followCircleStyle: {},  // set difference for the style of the circle around the user's location while following
-//   followMarkerStyle: {},
-//   icon: 'fa fa-map-marker',  // class for icon, fa-location-arrow or fa-map-marker
-//   iconLoading: 'fa fa-spinner fa-spin',  // class for loading icon
-//   circlePadding: [0, 0], // padding around accuracy circle, value is passed to setBounds
-//   metric: true,  // use metric or imperial units
-//   onLocationError: function(err) {alert(err.message)},  // define an error callback function
-//   onLocationOutsideMapBounds:  function(context) { // called when outside map boundaries
-//           alert(context.options.strings.outsideMapBoundsMsg);
-//   },
-//   showPopup: true, // display a popup when the user click on the inner marker
-//   strings: {
-//       title: "Show me where I am",  // title of the locate control
-//       popup: "You are within {distance} {unit} from this point",  // text to appear if user clicks on circle
-//       outsideMapBoundsMsg: "You seem located outside the boundaries of the map" // default message for onLocationOutsideMapBounds
-//   },
-//   locateOptions: {}  // define location options e.g enableHighAccuracy: true or maxZoom: 10
-// }).addTo(map);

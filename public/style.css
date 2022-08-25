@@ -342,11 +342,15 @@ input:focus {
   margin-top: 1%;
 }
 
+
+
+
+
 #deleteData:hover {
   background: red;
 }
 
-#btnup {
+.btnup {
   color: #fff;
   background: #226A80;
   text-decoration: none;
@@ -360,7 +364,12 @@ input:focus {
   margin-top: 1%;
 }
 
-#btnup:hover {
+.btn3 {
+  margin-top: 0%;
+}
+
+
+.btnup:hover {
   background: #0C4F60;
 }
 .form-control1 {
@@ -412,7 +421,7 @@ td {
   font-size: 15px;
   font-weight: 500;
   color: #000;
-  margin-top: 3%;
+  margin-top: 1%;
   text-transform: uppercase;
   margin-left: 0.5%;
 }
@@ -423,14 +432,16 @@ td {
   font-weight: 500;
   color: #000;
   text-transform: uppercase;
+  width: 30%;
 }
+
+
 
 
 .chart-container {
   width: 100%;
-  max-width: 600px;
-
-  display: block;
+  max-width: 750px;
+  display: flex;
   margin: 0 auto;
 }
 
@@ -528,9 +539,7 @@ td {
 }
 }
 
-.chart-container {
-  position: relative;
-  margin: auto;
-  height: 25vh;
-
+.line {
+  display: flex;
+  gap: 250px;
 }

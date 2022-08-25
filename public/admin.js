@@ -12,7 +12,6 @@ function viewAll() {
     //If result found, this function will be called.
     success: function (data) {
       let arr = data.results
-      console.log(arr)
       //initialize table
       tableInit(arr)
     },
@@ -44,14 +43,11 @@ function tableInit(tabledata) {
     ],
   })
   table.on("rowClick", function (e, row, cell) {
-    // console.log(row.getIndex())
     id = row.getIndex()
     table.on("cellEdited", (cell) => {
       let tableRow = table.getRow(id) //return row component with index of 1
-      console.log(tableRow)
       let rowData = tableRow.getData()
       editRow(rowData)
-      console.log(rowData)
     })
   })
 }

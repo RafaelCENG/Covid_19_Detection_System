@@ -58,25 +58,27 @@
   <div class='custom-popup' id='map'></div>
 
   {{!-- Search Bar --}}
-  <div class="wrapper">
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search" aria-label="Search"
-        autocomplete="chrome-off">
-      <button id='search_button' class="fa fa-search" onclick="mapSearching()" type="button"></button>
-      <!--<button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>-->
-      <div class="results">
-      </div>
-
-    </form>
-  </div>
-    <div class="container1">
-      {{!-- Confirmed Case Button --}}
-      <button id="case" class="btn btn-outline-danger" type="submit" value="Submit">Confirmed Case</button>
-
-      {{!-- Possible contact with case Button --}}
-      <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="possible_case" class="btn btn-outline-danger"
-        type="submit" value="Submit" onclick="sevenDaysConfirmed()">Possible Contact with Case</button>
+  <div class="line">
+    <div class="wrapper">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search" aria-label="Search"
+          autocomplete="chrome-off">
+        <button id='search_button' class="fa fa-search" onclick="mapSearching()" type="button"></button>
+        <!--<button id='search_button' class="btn btn-primary btn-outline-success my-2 my-sm-0" onclick="test()" type="button" >Search</button>-->
+        <div class="results">
     </div>
+      </form>
+    </div>
+      <div class="container1">
+        {{!-- Confirmed Case Button --}}
+        <button id="case" class="btn btn-outline-danger" type="submit" value="Submit">Confirmed Case</button>
+
+        {{!-- Possible contact with case Button --}}
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="possible_case" class="btn btn-outline-danger"
+          type="submit" value="Submit" onclick="sevenDaysConfirmed()">Possible Contact with Case</button>
+    </div>
+  </div>
+  
   {{!-- PopUp with possible contacts after pressing the button --}}
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

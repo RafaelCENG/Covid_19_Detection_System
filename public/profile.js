@@ -41,7 +41,6 @@ function changeUsername() {
 function changePassword() {
   let current_pass = document.getElementById("currPass").value
   let new_pass = document.getElementById("newPass").value
-  console.log(current_pass, new_pass)
   if (current_pass != null && new_pass != null) {
     dataSet = [current_user.id, current_pass, new_pass]
     $.ajax({
@@ -59,7 +58,6 @@ function changePassword() {
       },
     })
   }
-  console.log("Test")
   document.getElementById("currPass").value = ""
   document.getElementById("newPass").value = ""
 }
