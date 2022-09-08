@@ -164,7 +164,8 @@ app.post("/checkCase", function (req, res) {
 })
 //LOAD CONFIRMED NEW CASE
 app.post("/confirmedCase", function (req, res) {
-  var sql = "INSERT ignore INTO confirmed_case(username) VALUES (?) "
+  var sql = "INSERT INTO confirmed_case(username) VALUES (?) "
+  console.log(req.body.name)
   db.query(sql, req.body.name, function (err, rows) {
     if (err) {
       res.json({

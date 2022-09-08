@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2022 at 11:53 AM
+-- Generation Time: Sep 08, 2022 at 06:29 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -41,7 +41,9 @@ INSERT INTO `confirmed_case` (`username`, `time`) VALUES
 ('str', '2022-07-22 07:03:44'),
 ('str1', '2022-07-22 07:31:23'),
 ('strikecy', '2022-05-19 13:14:42'),
-('test', '2022-06-07 07:30:56');
+('test', '2022-06-07 07:30:56'),
+('strikecy', '2022-09-08 16:07:38'),
+('str1', '2022-09-08 16:07:50');
 
 -- --------------------------------------------------------
 
@@ -4605,7 +4607,9 @@ INSERT INTO `pois_visit` (`user_id`, `user_username`, `name_of_pois`, `id_of_poi
 (0, 'strikecy', 'Flocafe', 'ChIJ4bvbRlU3XhMRizrDqc9I6fU', '2022-07-28 17:43:03', 1000),
 (3, 'kous', 'Coffeebrands', 'ChIJ1f_1SOJJXhMRgrZ3x59ZKNw', '2022-08-24 13:01:34', 0),
 (1, 'strikecy', 'Coffeebrands', 'ChIJ1f_1SOJJXhMRgrZ3x59ZKNw', '2022-08-24 13:01:51', 10),
-(3, 'kous', 'Mary Flogera Hairdressing Room', 'ChIJw1cp-C9JXhMR8v9XtGbMjCc', '2022-08-25 11:46:18', 0);
+(3, 'kous', 'Mary Flogera Hairdressing Room', 'ChIJw1cp-C9JXhMR8v9XtGbMjCc', '2022-08-25 11:46:18', 0),
+(5, 'str1', 'Mary Flogera Hairdressing Room', 'ChIJw1cp-C9JXhMR8v9XtGbMjCc', '2022-09-08 18:54:05', 15),
+(1, 'strikecy', 'Mary Flogera Hairdressing Room', 'ChIJw1cp-C9JXhMR8v9XtGbMjCc', '2022-09-08 18:54:50', 0);
 
 -- --------------------------------------------------------
 
@@ -5020,17 +5024,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `admin`) VALUES
 (1, 'strikecy', 'rnicolaouceng@gmail.com', '$2a$08$7VLZYUBY04.LDUs4ddeEPeXu2zNPr.CIxeFD3CLZHxbrIk9NgHsRe', 0),
 (2, 'str', 'rnicolaouceng@gmail.com', 'strike123', 1),
 (3, 'kous', 'kous@gmail.com', '$2a$08$JlokQ6i4LCV9tH7rnNHkA.GNcGYEBoqcNj4VYNJI7d1bSiNLCqcAC', 0),
-(4, 'Nikoleta', 'nik@gmail.com', '$2a$08$uCze/X1xjDEvfMSf2uNfMeU84C657txjQkFKjoYH70bnv77Iu8KBK', 0);
+(4, 'Nikoleta', 'nik@gmail.com', '$2a$08$uCze/X1xjDEvfMSf2uNfMeU84C657txjQkFKjoYH70bnv77Iu8KBK', 0),
+(5, 'str1', 'asda@gmail.com', '$2a$08$t657gRcSPImb7FBhY3fFyeb/yCAJ1HHfY44IrBZPp70lzYVNh1jsS', 0);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `confirmed_case`
---
-ALTER TABLE `confirmed_case`
-  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `pois`
@@ -5454,7 +5453,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
