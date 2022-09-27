@@ -1,7 +1,7 @@
 # Covid-19 Detection System
 
 Covid-19 Detection System is a 
-crowdsourced traffic data collection system and be able to create a declaration of a possible case for the purpose of
+crowdsourced traffic data collection system where you are able to create a declaration of a possible case for the purpose of
 providing traffic information at points of interest, but also informing about possible
 contact with a reported case, as a means of controlling spread.
 ## Installation
